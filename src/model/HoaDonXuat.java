@@ -1,18 +1,21 @@
 package model;
 
-public class HoaDonXuat {
-	private double giaBan;
+import java.util.Date;
 
-	public HoaDonXuat(double giaBan) {
-		super();
+public class HoaDonXuat extends HoaDon {
+	private String giaBan;
+
+	public HoaDonXuat(KhachHang khachHang, String maSanPham, Date ngayMua, double soLuong, String giaBan) {
+		super(khachHang, maSanPham, ngayMua, soLuong);
 		this.giaBan = giaBan;
 	}
 
-	public double getGiaBan() {
+	public String getGiaBan() {
 		return giaBan;
 	}
 
-	public void setGiaBan(double giaBan) {
+	public void setGiaBan(String giaBan) {
 		this.giaBan = giaBan;
 	}
+
 }
