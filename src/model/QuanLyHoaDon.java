@@ -27,10 +27,10 @@ public class QuanLyHoaDon {
 					System.out.println("Nhap so luong: ");
 					int so = sc.nextInt();
 					if (so <= quanLySanPham.getDsSach().get(ma1).getSoLuong()) {
-						quanLySanPham.getDsSach().get(ma).getSoLuong()-=so;
-						HoaDon don= new HoaDon(khachHang, ma1, date, so);
+						quanLySanPham.getDsSach().get(ma).getSoLuong() -= so;
+						HoaDon don = new HoaDon(khachHang, ma1, date, so);
 						hoaDons.add(don);
-					}else {
+					} else {
 						System.out.println("Khong co du hang!");
 					}
 				} else {
@@ -40,10 +40,10 @@ public class QuanLyHoaDon {
 						System.out.println("Nhap so luong: ");
 						int so = sc.nextInt();
 						if (so <= quanLySanPham.getDsSach().get(ma2).getSoLuong()) {
-							quanLySanPham.getDsDiaNhac().get(ma2).getSoLuong()-=so;
-							HoaDon don= new HoaDon(khachHang, ma2, date, so);
+							quanLySanPham.getDsDiaNhac().get(ma2).getSoLuong() -= so;
+							HoaDon don = new HoaDon(khachHang, ma2, date, so);
 							hoaDons.add(don);
-						}else {
+						} else {
 							System.out.println("Khong co du hang!");
 						}
 					} else {
@@ -53,9 +53,9 @@ public class QuanLyHoaDon {
 							System.out.println("Nhap so luong: ");
 							int so = sc.nextInt();
 							if (so <= quanLySanPham.getDsDiaNhac().get(ma3).getSoLuong()) {
-								quanLySanPham.getDsDiaPhim().get(ma3).getSoLuong()-=so;
-								HoaDon don=new HoaDon(khachHang, ma3, date, so);
-							}else {
+								quanLySanPham.getDsDiaPhim().get(ma3).getSoLuong() -= so;
+								HoaDon don = new HoaDon(khachHang, ma3, date, so);
+							} else {
 								System.out.println("Khong co du hang!");
 							}
 						} else {
@@ -72,24 +72,30 @@ public class QuanLyHoaDon {
 			System.out.println(e.getMessage());
 		}
 	}
-	public double tinhDoanhThu(Date date1,Date date2) {
-		double doanhThu=0;
+
+	public double tinhDoanhThu(Date date1, Date date2) {
+		double doanhThu = 0;
 		try {
 			for (HoaDon hoaDon : hoaDons) {
-				doanhThu+=hoaDon.getDonXuat().getGiaBan();
+				if (hoaDon.getNgayMua().compareTo(date1) >= 0 && hoaDon.getNgayMua().compareTo(date2) <= 0) {
+					doanhThu += hoaDon.getDonXuat().getGiaBan();
+				}
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		return doanhThu;
 	}
+
 	public double tinhLai(Date date1, Date date2) {
-		double lai=0;
+		double lai = 0;
 		try {
 			for (HoaDon hoaDon : hoaDons) {
-				lai+=hoaDon.getDonXuat().getGiaBan()-hoaDon.getDonNhap().getGiaBuon();
+				if (hoaDon.getNgayMua().compareTo(date1) >= 0 && hoaDon.getNgayMua().compareTo(date2) <= 0) {
+					lai += hoaDon.getDonXuat().getGiaBan() - hoaDon.getDonNhap().getGiaBuon();
+				}
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		return lai;
