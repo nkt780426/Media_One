@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -8,6 +9,7 @@ import java.util.Scanner;
 
 public class QuanLyKhachHang {
 	private HashMap<String, KhachHang> dsKhachHang = new HashMap<>();
+	private QuanLySanPham quanLySanPham;
 	Scanner sc = new Scanner(System.in);
 
 	public HashMap<String, KhachHang> getDsKhachHang() {
