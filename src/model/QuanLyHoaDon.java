@@ -11,6 +11,10 @@ public class QuanLyHoaDon {
 	private ArrayList<HoaDonXuat> xuat = new ArrayList<>();
 	private ArrayList<HoaDonNhap> nhap = new ArrayList<>();
 	SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+	public String header1 = String.format("%4s%15s%10%8s%25s%20", "Ma Khach Hang", "Ten", "Ma san pham", "So Luong",
+			"Ngay Mua", "Gia Ban");
+	public String header2 = String.format("%4s%15s%6s%15s%15s%25s", "Ma Khach Hang", "Ten", "Ma san pham", "So Luong",
+			"Ngay Mua", "Gia Buon");
 	Scanner sc = new Scanner(System.in);
 
 	public ArrayList<HoaDonXuat> getXuat() {
@@ -103,9 +107,28 @@ public class QuanLyHoaDon {
 		}
 		return null;
 	}
+
 	// xuat toan bo hoa don xuat
+	public void xuatToanBoHoaDonXuat() {
+		System.out.println(header1);
+		for (HoaDonXuat hoaDonXuat : xuat) {
+			String row = String.format("%4s%15s%10%8s%25s%20", hoaDonXuat.getKhachHang().getMaKh(),
+					hoaDonXuat.getKhachHang().getTen(), hoaDonXuat.getMaSanPham(), hoaDonXuat.getSoLuong(),
+					hoaDonXuat.getNgayMua(), hoaDonXuat.getGiaBan());
+			System.out.println(row);
+		}
+	}
 
 	// xuat toan bo hoa don nhap
+	public void xuatToanBoHoaDonNhap() {
+		System.out.println(header2);
+		for (HoaDonNhap hoaDonNhap : nhap) {
+			String row = String.format("%4s%15s%10%8s%25s%20", hoaDonNhap.getKhachHang().getMaKh(),
+					hoaDonNhap.getKhachHang().getTen(), hoaDonNhap.getMaSanPham(), hoaDonNhap.getSoLuong(),
+					hoaDonNhap.getNgayMua(), hoaDonNhap.getGiaBuon());
+			System.out.println(row);
+		}
+	}
 
 	// tinhDoanhThu
 	public double tinhDoanhThu(Date date1, Date date2) {
