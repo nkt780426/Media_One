@@ -39,7 +39,7 @@ public class QuanLyKhachHang {
 		}
 	}
 
-	public void themKhachHang() {
+	public KhachHang themKhachHang() {
 		try {
 			System.out.println("Nhap ten khach hang: ");
 			String ten = sc.nextLine();
@@ -61,9 +61,9 @@ public class QuanLyKhachHang {
 
 			this.setMaKh(khachHang);
 			this.dsKhachHang.put(khachHang.getMaKh(), khachHang);
+			return khachHang;
 		} catch (InputMismatchException e) {
 			System.out.println("Ban da nhap sai gia tri, xin vui long nhap lai!");
-			this.themKhachHang();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

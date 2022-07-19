@@ -19,75 +19,8 @@ public class QuanLyHoaDon {
 		try {
 			System.out.println("Nhap ngay mua theo định dạng (dd/MM/yyyy) : ");
 			Date date = df.parse(sc.nextLine());
-			System.out.println("Nhap loai san pham muon mua (sach=1),(dianhac=2),(diaphim=3): ");
+			
 			int a = sc.nextInt();
-			if (a == 1) {
-				System.out.println("Ma san pham: ");
-				String ma1 = sc.nextLine();
-				if (quanLySanPham.getDsSach().containsKey(ma1)) {
-					System.out.println("Nhap so luong: ");
-					int so = sc.nextInt();
-					if (so <= quanLySanPham.getDsSach().get(ma1).getSoLuong()) {
-						quanLySanPham.getDsSach().get(ma).getSoLuong() -= so;
-						HoaDonNhap donNhap = new HoaDonNhap(khachHang, ma1, date, so, String.valueOf(quanLySanPham.getDsSach().get(ma1).getGiaBuon()));
-						nhap.add(donNhap);
-						HoaDonXuat donXuat = new HoaDonXuat(khachHang, ma1, date, so, String.valueOf(quanLySanPham.getDsSach().get(ma1).getGiaBan()));
-						xuat.add(donXuat);
-						return donXuat;
-					} else {
-						System.out.println("Khong co du hang!");
-					}
-				}else {
-					System.out.println("Ma san pham khong ton tai!");
-					return null;
-				}
-			}else {
-				if(a==2) {
-					System.out.println("Ma san pham: ");
-					String ma2 = sc.nextLine();
-					if (quanLySanPham.getDsDiaNhac().containsKey(ma2)) {
-						System.out.println("Nhap so luong: ");
-						int so = sc.nextInt();
-						if (so <= quanLySanPham.getDsDiaNhac().get(ma2).getSoLuong()) {
-							quanLySanPham.getDsDiaNhac().get(ma).getSoLuong() -= so;
-							HoaDonNhap donNhap = new HoaDonNhap(khachHang, ma2, date, so, String.valueOf(quanLySanPham.getDsDiaNhac().get(ma2).getGiaBuon()));
-							nhap.add(donNhap);
-							HoaDonXuat donXuat = new HoaDonXuat(khachHang, ma2, date, so, String.valueOf(quanLySanPham.getDsDiaNhac().get(ma2).getGiaBan()));
-							xuat.add(donXuat);
-							return donXuat;
-						} else {
-							System.out.println("Khong co du hang!");
-						}
-					}else {
-						System.out.println("Ma san pham khong ton tai!");
-						return null;
-					}
-				}else {
-					if(a==3) {
-						System.out.println("Ma san pham: ");
-						String ma3 = sc.nextLine();
-						if (quanLySanPham.getDsDiaPhim().containsKey(ma3)) {
-							System.out.println("Nhap so luong: ");
-							int so = sc.nextInt();
-							if (so <= quanLySanPham.getDsDiaPhim().get(ma3).getSoLuong()) {
-								quanLySanPham.getDsDiaPhim().get(ma).getSoLuong() -= so;
-								HoaDonNhap donNhap = new HoaDonNhap(khachHang, ma3, date, so, String.valueOf(quanLySanPham.getDsDiaPhim().get(ma3).getGiaBuon()));
-								nhap.add(donNhap);
-								HoaDonXuat donXuat = new HoaDonXuat(khachHang, ma3, date, so, String.valueOf(quanLySanPham.getDsDiaPhim().get(ma3).getGiaBan()));
-								xuat.add(donXuat);
-								return donXuat;
-							} else {
-								System.out.println("Khong co du hang!");
-							}
-						}else {
-							System.out.println("Ma san pham khong ton tai!");
-							return null;
-						}
-					}else {
-						System.out.println("Ban da nhap sai gia tri vui long nhap lai!");
-					}
-				}
-			}
 		} catch (InputMismatchException e) {
 			System.out.println("Ban da nhap sai xin vui long nhap lai!");
 		} catch (ParseException e) {
