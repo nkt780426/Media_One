@@ -214,15 +214,31 @@ public class QuanLySanPham {
 			System.out.println("Nhap ma san pham: ");
 			String maSp = sc.nextLine();
 			if(maTonTai(maSp)) {
-				
-			}
-			
-			
+				SanPham sanPham = timKiemTheoMa(maSp);
+				if(sanPham instanceof Sach) {
+					Sach sach = (Sach) sanPham;
+					dsSach.remove(maSp);
+				}
+				if(sanPham instanceof DiaPhim) {
+					DiaPhim diaPhim = (DiaPhim) sanPham;
+					dsDiaPhim.remove(maSp);
+				}
+				if(sanPham instanceof DiaNhac) {
+					DiaNhac diaNhac = (DiaNhac) sanPham;
+					dsDiaNhac.remove(maSp);
+				}						
+			}else  {
+				System.out.println(" San pham khong ton tai");
+			}		
 		} catch (Exception e) {
 			// TODO: handle exception
-		}
+		}	
 	}
-	public void hienThiThongTinSanPham() {
+	public void capNhatThongTinSanPham() {
+		xoaSanPham();
+		themSanPham();
+	}
+ 	public void hienThiToanBoSanPham() {
 		System.out.println("1.Hien thi  sach ");
 		System.out.println("2.Hien thi dia phim ");
 		System.out.println("3.Hien thi dia nhac ");
@@ -230,13 +246,13 @@ public class QuanLySanPham {
 			int luachon = sc.nextInt();
 			switch (luachon) {
 			case 1:
-				themSach();
+				hienThiSach();
 				break;
 			case 2:
-				themDiaPhim();
+				hienThiDiaPhim();
 				break;
 			case 3:
-				themDiaNhac();
+				hienThiDiaNhac();
 				break;
 					default:
 				break;
@@ -276,4 +292,5 @@ public class QuanLySanPham {
 			System.out.println(row);
 		}
 	}
+
 }
