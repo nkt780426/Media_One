@@ -72,7 +72,7 @@ public class QuanLyKhachHang {
 		return null;
 	}
 
-	public void timKiemThongTinKhachHang() {
+	public void xemKhachHang() {
 		System.out.println("Nhap ma khach hang: ");
 		String maKhachHang = sc.nextLine();
 		System.out.println("Thong tin khach hang: ");

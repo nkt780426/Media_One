@@ -53,8 +53,8 @@ public class HeThong {
 		// doc toan bo dl tu phai vao cac mang
 		int luaChon = 0;
 		do {
-			Scanner sc = new Scanner(System.in);
 			luaChon();
+			Scanner sc = new Scanner(System.in);
 			System.out.println("Nhap lua chon: ");
 			try {
 				luaChon = sc.nextInt();
