@@ -5,18 +5,15 @@ public abstract class SanPham {
 	private String tenSp;
 	private int namPhatHanh;
 	private int soLuong;
-	private String theLoai;
 	private double giaBuon;
 	private double giaBan;
 
-	public SanPham(String maSp, String tenSp, int namPhatHanh, int soLuong, String theLoai, double giaBuon,
+	public SanPham(String maSp, String tenSp, int namPhatHanh, int soLuong, double giaBuon,
 			double giaBan) {
-		super();
 		this.maSp = maSp;
 		this.tenSp = tenSp;
 		this.namPhatHanh = namPhatHanh;
 		this.soLuong = soLuong;
-		this.theLoai = theLoai;
 		this.giaBuon = giaBuon;
 		this.giaBan = giaBan;
 	}
@@ -52,15 +49,6 @@ public abstract class SanPham {
 	public void setSoLuong(int soLuong) {
 		this.soLuong = soLuong;
 	}
-
-	public String getTheLoai() {
-		return theLoai;
-	}
-
-	public void setTheLoai(String theLoai) {
-		this.theLoai = theLoai;
-	}
-
 	public double getGiaBuon() {
 		return giaBuon;
 	}
