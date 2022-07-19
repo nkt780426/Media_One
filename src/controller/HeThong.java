@@ -21,16 +21,32 @@ public class HeThong {
 	}
 
 	public static void menuKhachHang() {
+		// Quan ly san pham
 		System.out.println("1.Xem toan bo san pham:");
 		System.out.println("2.Xem thong tin san pham theo ma:");
 		System.out.println("3.Mua hang:");
-		System.out.println("4.Xem thong tin ca nhan:");
-		System.out.println("5.Cap nhat thong tin ca nhan:");
-		System.out.println("6.Quay lai:");
+			//luc mua goi ham them khach hang
+			//sau do hoi so loai hang muon mua va goi n lan hàm mua hàng
+		System.out.println("4.Quay lai:");
 	}
 
 	public static void menuQuanLy() {
-		System.out.println("");
+		// Quan ly san pham
+		System.out.println("1.Xem toan bo san pham: ");
+		System.out.println("2.Xem thong tin san pham theo ma: ");
+		System.out.println("3.Cap nhat thong tin san pham:");
+		System.out.println("4.Them san pham moi: ");
+		System.out.println("5.Xoa san pham");
+		// Quan ly khach hang
+		System.out.println("6.Xem toan bo khach hang: ");
+		System.out.println("7.Xem thong tin khach hang theo ma:");
+		// Quan ly nhan vien
+		System.out.println("8.Xem toan bo nhan vien: ");
+		System.out.println("9.Xem thong tin nhan vien theo ma: ");
+		System.out.println("10.Cap nhat thong tin nhan vien");
+		System.out.println("11.Them nhan vien: ");
+		System.out.println("12.Xoa nhan vien: ");
+		System.out.println("13.Quay lai:");
 	}
 
 	public static void main(String[] args) {
@@ -43,13 +59,13 @@ public class HeThong {
 			try {
 				luaChon = sc.nextInt();
 				switch (luaChon) {
-				//Khach hang
+				// Khach hang
 				case 1:
 					Scanner sc1 = new Scanner(System.in);
 					try {
 						menuKhachHang();
 						System.out.println("Nhap lua chon: ");
-						int luaChonKhachHang=sc1.nextInt();
+						int luaChonKhachHang = sc1.nextInt();
 						switch (luaChon) {
 						case 1:
 
@@ -78,7 +94,7 @@ public class HeThong {
 						e.printStackTrace();
 					}
 					break;
-				//Quan ly
+				// Quan ly
 				case 2:
 
 					break;
