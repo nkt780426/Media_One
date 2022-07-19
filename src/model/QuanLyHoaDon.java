@@ -1,7 +1,5 @@
 package model;
 
-import java.text.ParseException;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,11 +8,28 @@ import java.util.Scanner;
 
 public class QuanLyHoaDon {
 	private QuanLySanPham quanLySanPham;
-	ArrayList<HoaDonXuat> xuat = new ArrayList<>();
-	ArrayList<HoaDonNhap> nhap = new ArrayList<>();
+	private ArrayList<HoaDonXuat> xuat = new ArrayList<>();
+	private ArrayList<HoaDonNhap> nhap = new ArrayList<>();
 	SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 	Scanner sc = new Scanner(System.in);
 
+	public ArrayList<HoaDonXuat> getXuat() {
+		return xuat;
+	}
+
+	public void setXuat(ArrayList<HoaDonXuat> xuat) {
+		this.xuat = xuat;
+	}
+
+	public ArrayList<HoaDonNhap> getNhap() {
+		return nhap;
+	}
+
+	public void setNhap(ArrayList<HoaDonNhap> nhap) {
+		this.nhap = nhap;
+	}
+
+	// mua hang
 	public HoaDonXuat muaHang(KhachHang khachHang) {
 		try {
 			System.out.println("Nhap ngay mua theo định dạng (dd/MM/yyyy) : ");
@@ -82,14 +97,17 @@ public class QuanLyHoaDon {
 			}
 		} catch (InputMismatchException e) {
 			System.out.println("Ban da nhap sai xin vui long nhap lai!");
-		} catch (ParseException e) {
-			System.out.println("Ban da nhap sai dinh dang ngay xin vui long nhap lai!");
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		return null;
 	}
+	// xuat toan bo hoa don xuat
 
+	// xuat toan bo hoa don nhap
+
+	// tinhDoanhThu
 	public double tinhDoanhThu(Date date1, Date date2) {
 		double doanhThu = 0;
 		try {
@@ -104,7 +122,8 @@ public class QuanLyHoaDon {
 		return doanhThu;
 	}
 
-	public double tinhLai(Date date1, Date date2) {
+	// TinhLaitheohoadon
+	public double tinhLaiTheoHoaDon(Date date1, Date date2) {
 		double lai = 0;
 		try {
 			for (HoaDonNhap hoaDonNhap : nhap) {

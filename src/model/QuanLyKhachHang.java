@@ -5,11 +5,13 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 
 public class QuanLyKhachHang {
 	private HashMap<String, KhachHang> dsKhachHang = new HashMap<>();
-	private QuanLySanPham quanLySanPham;
+	public String header = String.format("%4s%15s%6s%15s%15s%25s", "Ma", "Ten", "Gioi Tinh", "Ngay Sinh", "SDT",
+			"Dia chi");
 	Scanner sc = new Scanner(System.in);
 
 	public HashMap<String, KhachHang> getDsKhachHang() {
@@ -59,45 +61,39 @@ public class QuanLyKhachHang {
 
 			KhachHang khachHang = new KhachHang(ten, diaChi, sdt, gioiTinh, ngaySinh);
 
-			this.setMaKh(khachHang);
-			this.dsKhachHang.put(khachHang.getMaKh(), khachHang);
+			setMaKh(khachHang);
+			dsKhachHang.put(khachHang.getMaKh(), khachHang);
 			return khachHang;
 		} catch (InputMismatchException e) {
 			System.out.println("Ban da nhap sai gia tri, xin vui long nhap lai!");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-	}
-
-	public void xoaKhachHang() {
-		try {
-			System.out.println("Nhap ma khach hang: ");
-			String s = sc.nextLine();
-			if (this.dsKhachHang.containsKey(s)) {
-				this.dsKhachHang.remove(s);
-			} else {
-				System.out.println("Ma khach hang khong ton tai!");
-			}
-		} catch (InputMismatchException e) {
-			System.out.println("Ban da nhap sai gia tri, xin vui long nhap lai!");
-			this.xoaKhachHang();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+		return null;
 	}
 
 	public void timKiemThongTinKhachHang() {
 		System.out.println("Nhap ma khach hang: ");
 		String maKhachHang = sc.nextLine();
+		System.out.println("Thong tin khach hang: ");
 		if (this.dsKhachHang.containsKey(maKhachHang)) {
 			KhachHang khachHang = this.dsKhachHang.get(maKhachHang);
-			System.out.println(khachHang);
+			System.out.println(header);
+			String row = String.format("%4s%15s%6s%15s%15s%25s", khachHang.getMaKh(), khachHang.getTen(),
+					khachHang.getGioiTinh(), khachHang.getNgaySinh(), khachHang.getSdt(), khachHang.getDiaChi());
+			System.out.println(row);
 		} else {
 			System.out.println("Ma khach hang khong ton tai!");
 		}
 	}
-	// Thieu 1 ham in toan bo danh sach khach hang nua: dung for-each va printf ra
-	// man hinh
-	// sua ham toString de in ra cho dep hon = xem lai youtube du an quan ly ban
-	// hang luc dau y
+
+	public void xemToanBo() {
+		System.out.println("Danh sach khach hang");
+		System.out.println(header);
+		for (Map.Entry<String, KhachHang> entry : dsKhachHang.entrySet()) {
+			String row = String.format("%4s%15s%6s%15s%15s%25s", entry.getValue().getMaKh(), entry.getValue().getTen(),
+					entry.getValue().getGioiTinh(), entry.getValue().getNgaySinh(), entry.getValue().getSdt(), entry.getValue().getDiaChi());
+			System.out.println(row);
+		}
+	}
 }

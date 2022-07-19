@@ -65,11 +65,4 @@ public class KhachHang {
 	public void setNgaySinh(Date ngaySinh) {
 		this.ngaySinh = ngaySinh;
 	}
-
-	@Override
-	public String toString() {
-		return "KhachHang [ten=" + ten + ", maKh=" + maKh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", gioiTinh="
-				+ gioiTinh + ", ngaySinh=" + ngaySinh + "]";
-	}
-
 }
