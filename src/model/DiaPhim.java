@@ -7,9 +7,9 @@ public class DiaPhim extends SanPham {
 	private String[] daoDien;
 	private String[] dienVien;
 
-	public DiaPhim(String maSp, String tenSp, int namPhatHanh, double giaBan, String theLoai, int thoiLuong,
-			String[] daoDien, String[] dienVien) {
-		super(maSp, tenSp, namPhatHanh, giaBan, theLoai);
+	public DiaPhim(String maSp, String tenSp, int namPhatHanh, int soLuong, String theLoai, double giaBuon,
+			double giaBan, int thoiLuong, String[] daoDien, String[] dienVien) {
+		super(maSp, tenSp, namPhatHanh, soLuong, theLoai, giaBuon, giaBan);
 		this.thoiLuong = thoiLuong;
 		this.daoDien = daoDien;
 		this.dienVien = dienVien;
@@ -39,8 +39,10 @@ public class DiaPhim extends SanPham {
 		this.dienVien = dienVien;
 	}
 
+	@Override
 	public String toString() {
 		return "DiaPhim [thoiLuong=" + thoiLuong + ", daoDien=" + Arrays.toString(daoDien) + ", dienVien="
 				+ Arrays.toString(dienVien) + "]";
 	}
+
 }

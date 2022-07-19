@@ -1,9 +1,6 @@
 package model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
-public abstract class SanPham implements Serializable {
+public abstract class SanPham {
 	private String maSp;
 	private String tenSp;
 	private int namPhatHanh;
