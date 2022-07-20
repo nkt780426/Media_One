@@ -3,6 +3,8 @@ package model;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
@@ -10,7 +12,7 @@ import java.util.Scanner;
 
 public class QuanLyNhanVien {
 	private HashMap<String, NhanVien> dsNhanVien = new HashMap<String, NhanVien>();
-	public String header = String.format("%4s%15s%6s%15s%15s%25s%15s%8s", "Ma", "Ten", "Gioi Tinh", "Ngay Sinh", "SDT",
+	public String header = String.format("%10s%25s%25s%25s%30s%30s%25s%30s", "Ma", "Ten", "Gioi Tinh", "Ngay Sinh", "SDT",
 			"Dia chi", "Luong", "Ngay nhan Luong");
 	Scanner sc = new Scanner(System.in);
 
@@ -23,50 +25,48 @@ public class QuanLyNhanVien {
 	}
 
 	// them
-	public NhanVien themNhanVien() {
+	public void themNhanVien() {
 		try {
-			System.out.println("Nhap ten nhan vien: ");
+			System.out.print("Nhap ten nhan vien: ");
 			String ten = sc.nextLine();
 
-			System.out.println("Nhap dia chi: ");
+			System.out.print("Nhap dia chi: ");
 			String diaChi = sc.nextLine();
-			
-			sc.nextLine();
-			System.out.println("Nhap so dien thoai: ");
-			Long sdt = sc.nextLong();
-			if (sdt <= 0)
-				throw new InputMismatchException();
 
-			System.out.println("Nhap gioi tinh: ");
+			System.out.print("Nhap so dien thoai: ");
+			String sdt = sc.nextLine();
+
+			if (Long.parseLong(sdt) <= 0) {
+				throw new InputMismatchException();
+			}
+
+			System.out.print("Nhap gioi tinh (NAM or NU): ");
 			String gioiTinh = sc.nextLine();
 
-			System.out.println("Nhap ngay sinh(dd-MM-yyyy): ");
-			SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-			Date ngaySinh = (Date) df.parse(sc.nextLine());
+			System.out.print("Nhap ngay sinh(dd-MM-yyyy): ");
+			DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+			LocalDate ngaySinh = LocalDate.parse(sc.nextLine(), df);
 
-			System.out.println("Nhap luong: ");
-			double luong = sc.nextDouble();
+			System.out.print("Nhap luong: ");
+			double luong = Double.parseDouble(sc.nextLine());
 
-			System.out.println("Nhap ngay nhan luong (tu 1-28):");
-			int ngayNhanLuong = sc.nextInt();
+			System.out.print("Nhap ngay nhan luong (tu 1-28):");
+			int ngayNhanLuong = Integer.parseInt(sc.nextLine());
+			if (ngayNhanLuong < 1 || ngayNhanLuong > 28) {
+				System.out.println("Ngay nhan luong tu [1-28] thoi!");
+			}
 
-			System.out.println("Nhap ma nhan vien: ");
+			System.out.print("Nhap ma nhan vien: ");
 			String maNhanVien = sc.nextLine();
-			if (dsNhanVien.containsKey(maNhanVien))
-				throw new InputMismatchException();
 
 			NhanVien nhanVien = new NhanVien(ten, maNhanVien, gioiTinh, diaChi, sdt, ngaySinh, luong, ngayNhanLuong);
-
-			dsNhanVien.put(nhanVien.getMaNV(), nhanVien);
-			return nhanVien;
+			dsNhanVien.put(nhanVien.getMaNV(),nhanVien);
 		} catch (InputMismatchException e) {
 			System.out.println("Ban da nhap sai gia tri, xin vui long nhap lai!");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		return null;
 	}
-
 	// xoa
 
 	public void xoaNhanVien() {
@@ -88,7 +88,7 @@ public class QuanLyNhanVien {
 		if (this.dsNhanVien.containsKey(ma)) {
 			NhanVien nhanVien = this.dsNhanVien.get(ma);
 			System.out.println(header);
-			String row = String.format("%4s%15s%6s%15s%15s%25s%15s%8s", nhanVien.getMaNV(), nhanVien.getTen(),
+			String row = String.format("%10s%25s%25s%25s%30s%30s%25s%30s", nhanVien.getMaNV(), nhanVien.getTen(),
 					nhanVien.getGioiTinh(), nhanVien.getNgaySinh(), nhanVien.getSdt(), nhanVien.getDiaChi(),
 					nhanVien.getLuong(), nhanVien.getNgayNhanLuong());
 			System.out.println(row);
@@ -102,7 +102,7 @@ public class QuanLyNhanVien {
 		System.out.println("Danh sach nhan vien: ");
 		System.out.println(header);
 		for (Map.Entry<String, NhanVien> entry : dsNhanVien.entrySet()) {
-			String row = String.format("%4s%15s%6s%15s%15s%25s%15s%8s", entry.getValue().getMaNV(),
+			String row = String.format("%10s%25s%25s%25s%30s%30s%25s%30s", entry.getValue().getMaNV(),
 					entry.getValue().getTen(), entry.getValue().getGioiTinh(), entry.getValue().getNgaySinh(),
 					entry.getValue().getSdt(), entry.getValue().getDiaChi(), entry.getValue().getLuong(),
 					entry.getValue().getNgayNhanLuong());
@@ -116,43 +116,7 @@ public class QuanLyNhanVien {
 		String ma = sc.nextLine();
 		if (dsNhanVien.containsKey(ma)) {
 			dsNhanVien.remove(ma);
-			try {
-				System.out.println("Nhap ten nhan vien: ");
-				String ten = sc.nextLine();
-
-				System.out.println("Nhap dia chi: ");
-				String diaChi = sc.nextLine();
-
-				System.out.println("Nhap so dien thoai: ");
-				Long sdt = sc.nextLong();
-
-				System.out.println("Nhap gioi tinh: ");
-				String gioiTinh = sc.nextLine();
-
-				System.out.println("Nhap ngay sinh(dd-MM-yyyy): ");
-				SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-				Date ngaySinh = (Date) df.parse(sc.nextLine());
-
-				System.out.println("Nhap luong: ");
-				double luong = sc.nextDouble();
-
-				System.out.println("Nhap ngay nhan luong (tu 1-28):");
-				int ngayNhanLuong = sc.nextInt();
-
-				System.out.println("Nhap ma nhan vien: ");
-				String maNhanVien = sc.nextLine();
-				if (dsNhanVien.containsKey(maNhanVien))
-					throw new InputMismatchException();
-
-				NhanVien nhanVien = new NhanVien(ten, maNhanVien, gioiTinh, diaChi, sdt, ngaySinh, luong,
-						ngayNhanLuong);
-
-				dsNhanVien.put(nhanVien.getMaNV(), nhanVien);
-			} catch (InputMismatchException e) {
-				System.out.println("Ban da nhap sai gia tri, xin vui long nhap lai!");
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
+			themNhanVien();
 		} else {
 			System.out.println("Ma nhan vien khong ton tai!");
 		}

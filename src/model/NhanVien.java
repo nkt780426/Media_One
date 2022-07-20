@@ -1,18 +1,17 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class NhanVien {
 	private String ten;
 	private String maNV;
 	private String gioiTinh;
 	private String diaChi;
-	private Long sdt;
-	private Date ngaySinh;
+	private String sdt;
+	private LocalDate ngaySinh;
 	private double luong;
-	private int ngayNhanLuong;// bat loi neu ngay nhan luong ko tu 1-28
-
-	public NhanVien(String ten, String maNV, String gioiTinh, String diaChi, Long sdt, Date ngaySinh, double luong,
+	private int ngayNhanLuong;
+	public NhanVien(String ten, String maNV, String gioiTinh, String diaChi, String sdt, LocalDate ngaySinh, double luong,
 			int ngayNhanLuong) {
 		super();
 		this.ten = ten;
@@ -24,69 +23,53 @@ public class NhanVien {
 		this.luong = luong;
 		this.ngayNhanLuong = ngayNhanLuong;
 	}
-
 	public String getTen() {
 		return ten;
 	}
-
 	public void setTen(String ten) {
 		this.ten = ten;
 	}
-
 	public String getMaNV() {
 		return maNV;
 	}
-
 	public void setMaNV(String maNV) {
 		this.maNV = maNV;
 	}
-
 	public String getGioiTinh() {
 		return gioiTinh;
 	}
-
 	public void setGioiTinh(String gioiTinh) {
 		this.gioiTinh = gioiTinh;
 	}
-
 	public String getDiaChi() {
 		return diaChi;
 	}
-
 	public void setDiaChi(String diaChi) {
 		this.diaChi = diaChi;
 	}
-
-	public Long getSdt() {
+	public String getSdt() {
 		return sdt;
 	}
-
-	public void setSdt(Long sdt) {
+	public void setSdt(String sdt) {
 		this.sdt = sdt;
 	}
-
-	public Date getNgaySinh() {
+	public LocalDate getNgaySinh() {
 		return ngaySinh;
 	}
-
-	public void setNgaySinh(Date ngaySinh) {
+	public void setNgaySinh(LocalDate ngaySinh) {
 		this.ngaySinh = ngaySinh;
 	}
-
-	public int getNgayNhanLuong() {
-		return ngayNhanLuong;
-	}
-
-	public void setNgayNhanLuong(int ngayNhanLuong) {
-		this.ngayNhanLuong = ngayNhanLuong;
-	}
-
 	public double getLuong() {
 		return luong;
 	}
-
 	public void setLuong(double luong) {
 		this.luong = luong;
 	}
-
+	public int getNgayNhanLuong() {
+		return ngayNhanLuong;
+	}
+	public void setNgayNhanLuong(int ngayNhanLuong) {
+		this.ngayNhanLuong = ngayNhanLuong;
+	}
+	
 }
