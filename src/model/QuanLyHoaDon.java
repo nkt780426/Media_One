@@ -112,7 +112,7 @@ public class QuanLyHoaDon {
 	public void xuatToanBoHoaDonXuat() {
 		System.out.println(header1);
 		for (HoaDonXuat hoaDonXuat : xuat) {
-			String row = String.format("%4s%15s%10%8s%25s%20", hoaDonXuat.getKhachHang().getMaKh(),
+			String row = String.format("%4s%15s%10%8s%25s%20s", hoaDonXuat.getKhachHang().getMaKh(),
 					hoaDonXuat.getKhachHang().getTen(), hoaDonXuat.getMaSanPham(), hoaDonXuat.getSoLuong(),
 					hoaDonXuat.getNgayMua(), hoaDonXuat.getGiaBan());
 			System.out.println(row);
@@ -123,7 +123,7 @@ public class QuanLyHoaDon {
 	public void xuatToanBoHoaDonNhap() {
 		System.out.println(header2);
 		for (HoaDonNhap hoaDonNhap : nhap) {
-			String row = String.format("%4s%15s%10%8s%25s%20", hoaDonNhap.getKhachHang().getMaKh(),
+			String row = String.format("%4s%15s%10%8s%25s%20s", hoaDonNhap.getKhachHang().getMaKh(),
 					hoaDonNhap.getKhachHang().getTen(), hoaDonNhap.getMaSanPham(), hoaDonNhap.getSoLuong(),
 					hoaDonNhap.getNgayMua(), hoaDonNhap.getGiaBuon());
 			System.out.println(row);
