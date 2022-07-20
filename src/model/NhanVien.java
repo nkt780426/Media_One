@@ -12,10 +12,11 @@ public class NhanVien {
 	private double luong;
 	private int ngayNhanLuong;// bat loi neu ngay nhan luong ko tu 1-28
 
-	public NhanVien(String ten, String gioiTinh, String diaChi, Long sdt, Date ngaySinh, double luong,
+	public NhanVien(String ten, String maNV, String gioiTinh, String diaChi, Long sdt, Date ngaySinh, double luong,
 			int ngayNhanLuong) {
 		super();
 		this.ten = ten;
+		this.maNV = maNV;
 		this.gioiTinh = gioiTinh;
 		this.diaChi = diaChi;
 		this.sdt = sdt;

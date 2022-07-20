@@ -22,25 +22,6 @@ public class QuanLyNhanVien {
 		this.dsNhanVien = dsNhanVien;
 	}
 
-	public void setMaNV(NhanVien nhanVien) {
-		// he thong tu tao ma cho khach hang
-		// ma= chu cuoi cung cua ten+ chu dau tien cua dia chi+ 2 so cuoi cung
-		// cua sdt(co thay doi)
-		String s1 = Character.toString(nhanVien.getTen().charAt(nhanVien.getTen().length() - 1));
-		String s2 = Character.toString(nhanVien.getDiaChi().charAt(0));
-		Long a = nhanVien.getSdt();
-		while (true) {
-			String s3 = a.toString().substring(a.toString().length() - 3);
-			String s = s1 + s2 + s3;
-			if (dsNhanVien.containsKey(s)) {
-				a += 1;
-			} else {
-				nhanVien.setMaNV(s);
-				break;
-			}
-		}
-	}
-
 	// them
 	public NhanVien themNhanVien() {
 		try {
@@ -52,6 +33,8 @@ public class QuanLyNhanVien {
 
 			System.out.println("Nhap so dien thoai: ");
 			Long sdt = sc.nextLong();
+			if (sdt <= 0)
+				throw new InputMismatchException();
 
 			System.out.println("Nhap gioi tinh: ");
 			String gioiTinh = sc.nextLine();
@@ -66,9 +49,13 @@ public class QuanLyNhanVien {
 			System.out.println("Nhap ngay nhan luong (tu 1-28):");
 			int ngayNhanLuong = sc.nextInt();
 
-			NhanVien nhanVien = new NhanVien(ten, gioiTinh, diaChi, sdt, ngaySinh, luong, ngayNhanLuong);
+			System.out.println("Nhap ma nhan vien: ");
+			String maNhanVien = sc.nextLine();
+			if (dsNhanVien.containsKey(maNhanVien))
+				throw new InputMismatchException();
 
-			setMaNV(nhanVien);
+			NhanVien nhanVien = new NhanVien(ten, maNhanVien, gioiTinh, diaChi, sdt, ngaySinh, luong, ngayNhanLuong);
+
 			dsNhanVien.put(nhanVien.getMaNV(), nhanVien);
 			return nhanVien;
 		} catch (InputMismatchException e) {
@@ -151,9 +138,14 @@ public class QuanLyNhanVien {
 				System.out.println("Nhap ngay nhan luong (tu 1-28):");
 				int ngayNhanLuong = sc.nextInt();
 
-				NhanVien nhanVien = new NhanVien(ten, gioiTinh, diaChi, sdt, ngaySinh, luong, ngayNhanLuong);
+				System.out.println("Nhap ma nhan vien: ");
+				String maNhanVien = sc.nextLine();
+				if (dsNhanVien.containsKey(maNhanVien))
+					throw new InputMismatchException();
 
-				setMaNV(nhanVien);
+				NhanVien nhanVien = new NhanVien(ten, maNhanVien, gioiTinh, diaChi, sdt, ngaySinh, luong,
+						ngayNhanLuong);
+
 				dsNhanVien.put(nhanVien.getMaNV(), nhanVien);
 			} catch (InputMismatchException e) {
 				System.out.println("Ban da nhap sai gia tri, xin vui long nhap lai!");

@@ -1,6 +1,7 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -22,52 +23,38 @@ public class QuanLyKhachHang {
 		this.dsKhachHang = dsKhachHang;
 	}
 
-	public void setMaKh(KhachHang khachHang) {
-		// he thong tu tao ma cho khach hang
-		// ma= chu cuoi cung cua ten+ chu dau tien cua dia chi+ 2 so cuoi cung
-		// cua sdt(co thay doi)
-		String s1 = Character.toString(khachHang.getTen().charAt(khachHang.getTen().length() - 1));
-		String s2 = Character.toString(khachHang.getDiaChi().charAt(0));
-		Long a = khachHang.getSdt();
-		while (true) {
-			String s3 = a.toString().substring(a.toString().length() - 3);
-			String s = s1 + s2 + s3;
-			if (dsKhachHang.containsKey(s)) {
-				a += 1;
-			} else {
-				khachHang.setMaKh(s);
-				break;
-			}
-		}
-	}
-
 	public KhachHang themKhachHang() {
 		try {
 			System.out.println("Nhap ten khach hang: ");
 			String ten = sc.nextLine();
-
+			
 			System.out.println("Nhap dia chi: ");
 			String diaChi = sc.nextLine();
 
 			System.out.println("Nhap so dien thoai: ");
 			Long sdt = sc.nextLong();
+			if (sdt<=0) throw new InputMismatchException();
 
+			sc.nextLine();
 			System.out.println("Nhap gioi tinh: ");
 			String gioiTinh = sc.nextLine();
 
-			System.out.println("Nhap ngay sinh(dd-MM-yyyy): ");
-			SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+			System.out.println("Nhap ngay sinh(dd/MM/yyyy): ");
+			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 			Date ngaySinh = (Date) df.parse(sc.nextLine());
 
-			KhachHang khachHang = new KhachHang(ten, diaChi, sdt, gioiTinh, ngaySinh);
+			System.out.println("Nhap ma khach hang: ");
+			String maKhachHang= sc.nextLine();
+			if(dsKhachHang.containsKey(maKhachHang)) throw new InputMismatchException();
+			
+			KhachHang khachHang = new KhachHang(ten, maKhachHang, diaChi, sdt, gioiTinh, ngaySinh);
 
-			setMaKh(khachHang);
 			dsKhachHang.put(khachHang.getMaKh(), khachHang);
 			return khachHang;
 		} catch (InputMismatchException e) {
 			System.out.println("Ban da nhap sai gia tri, xin vui long nhap lai!");
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 		return null;
 	}

@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class KhachHang {
 	private String ten;
@@ -10,8 +10,10 @@ public class KhachHang {
 	private String gioiTinh;
 	private Date ngaySinh;
 
-	public KhachHang(String ten, String diaChi, Long sdt, String gioiTinh, Date ngaySinh) {
+	public KhachHang(String ten, String maKh, String diaChi, Long sdt, String gioiTinh, Date ngaySinh) {
+		super();
 		this.ten = ten;
+		this.maKh = maKh;
 		this.diaChi = diaChi;
 		this.sdt = sdt;
 		this.gioiTinh = gioiTinh;
@@ -30,8 +32,8 @@ public class KhachHang {
 		return maKh;
 	}
 
-	public void setMaKh(String maKh) {
-		this.maKh = maKh;
+	public void setMaKh(String s) {
+		this.maKh = s;
 	}
 
 	public String getDiaChi() {

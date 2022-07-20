@@ -11,7 +11,7 @@ public class QuanLyHoaDon {
 	private ArrayList<HoaDonXuat> xuat = new ArrayList<>();
 	private ArrayList<HoaDonNhap> nhap = new ArrayList<>();
 	SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-	public String header1 = String.format("%4s%15s%10%8s%25s%20", "Ma Khach Hang", "Ten", "Ma san pham", "So Luong",
+	public String header1 = String.format("%4s%15s%10s%8s%25s%20s", "Ma Khach Hang", "Ten", "Ma san pham", "So Luong",
 			"Ngay Mua", "Gia Ban");
 	public String header2 = String.format("%4s%15s%6s%15s%15s%25s", "Ma Khach Hang", "Ten", "Ma san pham", "So Luong",
 			"Ngay Mua", "Gia Buon");
@@ -103,7 +103,7 @@ public class QuanLyHoaDon {
 			System.out.println("Ban da nhap sai xin vui long nhap lai!");
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 		return null;
 	}
