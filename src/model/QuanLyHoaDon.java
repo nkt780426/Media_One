@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class QuanLyHoaDon {
 	private QuanLySanPham quanLySanPham;
+	private QuanLyNhanVien quanLyNhanVien;
 	private ArrayList<HoaDonXuat> xuat = new ArrayList<>();
 	private ArrayList<HoaDonNhap> nhap = new ArrayList<>();
 	SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -158,5 +159,40 @@ public class QuanLyHoaDon {
 			System.out.println(e.getMessage());
 		}
 		return tinhDoanhThu(date1, date2) - lai;
+	}
+	public void tinhLai() {
+		System.out.println("------Nhap khoang thoi gian ban muon xem------");
+		System.out.println("Chu y ngay 1 phai nho hon ngay 2");
+		try {
+			System.out.println("Ngay 1 (dd/MM/yyyy) : ");
+			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			Date date1 = (Date) df.parse(sc.nextLine());
+
+			System.out.println("Ngay 2 (dd/MM/yyyy) : ");
+			Date date2 = (Date) df.parse(sc.nextLine());
+
+			if(date1.before(date2)) {
+				
+				System.out.println();
+				System.out.println("Doanh thu trong khoang thoi gian da nhap la: "
+						+ tinhDoanhThu(date1, date2));
+				double loiNhuan = tinhLaiTheoHoaDon(date1, date2)
+						- quanLyNhanVien.tongLuong(date1, date2);
+				if (loiNhuan < 0) {
+					System.out.println("Lo: " + loiNhuan);
+				}
+				if (loiNhuan == 0) {
+					System.out.println("Hoa von!");
+				}
+				if (loiNhuan > 0) {
+					System.out.println("Lai: " + loiNhuan);
+				}
+			}else {
+				throw new Exception();
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Ban da nhap sai xin vui long nhap lai!");
+		}
 	}
 }

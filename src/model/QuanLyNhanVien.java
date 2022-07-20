@@ -30,7 +30,8 @@ public class QuanLyNhanVien {
 
 			System.out.println("Nhap dia chi: ");
 			String diaChi = sc.nextLine();
-
+			
+			sc.nextLine();
 			System.out.println("Nhap so dien thoai: ");
 			Long sdt = sc.nextLong();
 			if (sdt <= 0)

@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -11,6 +12,7 @@ import java.util.Scanner;
 
 public class QuanLyKhachHang {
 	private HashMap<String, KhachHang> dsKhachHang = new HashMap<>();
+	private QuanLyHoaDon quanLyHoaDon;
 	public String header = String.format("%4s%15s%6s%15s%15s%25s", "Ma", "Ten", "Gioi Tinh", "Ngay Sinh", "SDT",
 			"Dia chi");
 	Scanner sc = new Scanner(System.in);
@@ -81,6 +83,29 @@ public class QuanLyKhachHang {
 			String row = String.format("%4s%15s%6s%15s%15s%25s", entry.getValue().getMaKh(), entry.getValue().getTen(),
 					entry.getValue().getGioiTinh(), entry.getValue().getNgaySinh(), entry.getValue().getSdt(), entry.getValue().getDiaChi());
 			System.out.println(row);
+		}
+	}
+	public void muaHang() {
+		KhachHang khachHang = themKhachHang();
+		System.out.println("Nhap so loai hang muon mua: ");
+		int a = sc.nextInt();
+		if (a <= 0)
+			throw new InputMismatchException();
+		ArrayList<HoaDonXuat> hoaDonXuat = new ArrayList<HoaDonXuat>();
+		for (int i = 1; i <= a; i++) {
+			HoaDonXuat donXuat = quanLyHoaDon.muaHang(khachHang);
+			hoaDonXuat.add(donXuat);
+		}
+		System.out.println("Danh sach don hang: ");
+		System.out.println(quanLyHoaDon.header1);
+		for (HoaDonXuat donXuat : hoaDonXuat) {
+			if (hoaDonXuat != null) {
+				String row = String.format("%4s%15s%10%8s%25s%20s",
+						donXuat.getKhachHang().getMaKh(), donXuat.getKhachHang().getTen(),
+						donXuat.getMaSanPham(), donXuat.getSoLuong(), donXuat.getNgayMua(),
+						donXuat.getGiaBan());
+				System.out.println(row);
+			}
 		}
 	}
 }

@@ -1,13 +1,10 @@
 package controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import model.HoaDonXuat;
-import model.KhachHang;
 import model.QuanLyHoaDon;
 import model.QuanLyKhachHang;
 import model.QuanLyNhanVien;
@@ -81,27 +78,7 @@ public class HeThong {
 
 							break;
 						case 3:
-							KhachHang khachHang = quanLyKhachHang.themKhachHang();
-							System.out.println("Nhap so loai hang muon mua: ");
-							int a = sc.nextInt();
-							if (a <= 0)
-								throw new InputMismatchException();
-							ArrayList<HoaDonXuat> hoaDonXuat = new ArrayList<HoaDonXuat>();
-							for (int i = 1; i <= a; i++) {
-								HoaDonXuat donXuat = quanLyHoaDon.muaHang(khachHang);
-								hoaDonXuat.add(donXuat);
-							}
-							System.out.println("Danh sach don hang: ");
-							System.out.println(quanLyHoaDon.header1);
-							for (HoaDonXuat donXuat : hoaDonXuat) {
-								if (hoaDonXuat != null) {
-									String row = String.format("%4s%15s%10%8s%25s%20s",
-											donXuat.getKhachHang().getMaKh(), donXuat.getKhachHang().getTen(),
-											donXuat.getMaSanPham(), donXuat.getSoLuong(), donXuat.getNgayMua(),
-											donXuat.getGiaBan());
-									System.out.println(row);
-								}
-							}
+							quanLyKhachHang.muaHang();
 							break;
 						case 4:
 
@@ -160,39 +137,8 @@ public class HeThong {
 							quanLyNhanVien.xoaNhanVien();
 							break;
 						case 13:
-							System.out.println("------Nhap khoang thoi gian ban muon xem------");
-							System.out.println("Chu y ngay 1 phai nho hon ngay 2");
-							try {
-								System.out.println("Ngay 1 (dd/MM/yyyy) : ");
-								SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-								Date date1 = (Date) df.parse(sc.nextLine());
-
-								System.out.println("Ngay 2 (dd/MM/yyyy) : ");
-								Date date2 = (Date) df.parse(sc.nextLine());
-
-								if(date1.before(date2)) {
-									
-									System.out.println();
-									System.out.println("Doanh thu trong khoang thoi gian da nhap la: "
-											+ quanLyHoaDon.tinhDoanhThu(date1, date2));
-									double loiNhuan = quanLyHoaDon.tinhLaiTheoHoaDon(date1, date2)
-											- quanLyNhanVien.tongLuong(date1, date2);
-									if (loiNhuan < 0) {
-										System.out.println("Lo: " + loiNhuan);
-									}
-									if (loiNhuan == 0) {
-										System.out.println("Hoa von!");
-									}
-									if (loiNhuan > 0) {
-										System.out.println("Lai: " + loiNhuan);
-									}
-								}else {
-									throw new Exception();
-								}
-								
-							} catch (Exception e) {
-								System.out.println("Ban da nhap sai xin vui long nhap lai!");
-							}
+							quanLyHoaDon.tinhLai();
+							break;
 						case 14:
 							break;
 						default:
