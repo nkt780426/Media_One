@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -26,10 +25,9 @@ public class HeThong {
         System.out.println("2.Xem thong tin san pham theo ma:");
         //Quan ly khach hang+quan ly hoa don
         System.out.println("3.Mua hang:");
-        System.out.println("4.Cap nhat thong tin:");
         //luc mua goi ham them khach hang
         //sau do hoi so loai hang muon mua va goi n lan hàm mua hàng
-        System.out.println("5.Quay lai:");
+        System.out.println("4.Quay lai:");
     }
 
     public static void menuQuanLy() {
@@ -48,13 +46,13 @@ public class HeThong {
         System.out.println("10.Cap nhat thong tin nhan vien");
         System.out.println("11.Them nhan vien: ");
         System.out.println("12.Xoa nhan vien: ");
-        System.out.println("13.Xem doanh thu va loi nhuan: ");
-        System.out.println("14.Quay lai:");
+        System.out.println("13.Quay lai:");
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
     	QuanLySanPham quanLySanPham = new QuanLySanPham();
     	QuanLyKhachHang quanLyKhachHang = new QuanLyKhachHang();
+    	QuanLyHoaDon quanLyHoaDon = new QuanLyHoaDon();
         // doc toan bo dl tu phai vao cac mang
         int luaChon = 0;
         do {
@@ -78,8 +76,26 @@ public class HeThong {
 
                                     break;
                                 case 3:
-                                	quanLyKhachHang.muaHang();
-                                	break;
+                                	KhachHang khachHang= quanLyKhachHang.themKhachHang();
+                                	System.out.println("Nhap so loai hang muon mua: ");
+                                	int a= sc.nextInt();
+                                	if(a<=0) throw new InputMismatchException();
+                                	ArrayList<HoaDonXuat> hoaDonXuat= new ArrayList<HoaDonXuat>();
+                                	for(int i=1;i<=a;i++) {
+                                		HoaDonXuat donXuat= quanLyHoaDon.muaHang(khachHang);
+                                		hoaDonXuat.add(donXuat);
+                                	}
+                                	System.out.println("Danh sach don hang: ");
+                                	System.out.println(quanLyHoaDon.header1);
+                                	for (HoaDonXuat donXuat : hoaDonXuat) {
+										if(hoaDonXuat!=null) {
+											String row = String.format("%4s%15s%10%8s%25s%20", donXuat.getKhachHang().getMaKh(),
+													donXuat.getKhachHang().getTen(), donXuat.getMaSanPham(), donXuat.getSoLuong(),
+													donXuat.getNgayMua(), donXuat.getGiaBan());
+											System.out.println(row);
+										}
+									}
+                                    break;
                                 case 4:
 
                                     break;
@@ -125,11 +141,11 @@ public class HeThong {
 
                                         break;
                                     case 6:
-                                    	quanLyKhachHang.xemToanBo();
-                                    	break;
+    									//xem thong tin toan bo khach hang
+    									break;
                                     case 7:
-                                    	quanLyKhachHang.xemKhachHang();
-                                    	break;
+    									//xem thong tin khach hang theo ma
+                                        break;
                                     case 8:
                                     	quanLyNhanVien.xemToanBo();
                                         break;
@@ -146,8 +162,7 @@ public class HeThong {
                                     	quanLyNhanVien.xoaNhanVien();
                                         break;
                                     case 13:
-                                    	break;
-                                    case 14:
+                                    	//Quay lai
                                     	i = false;
                                         break;
                                     default:

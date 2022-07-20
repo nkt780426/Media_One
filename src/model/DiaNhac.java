@@ -36,11 +36,5 @@ public class DiaNhac extends SanPham {
 	public void setDanhsachBaiHat(String danhsachBaiHat) {
 		this.danhsachBaiHat = danhsachBaiHat;
 	}
-
-	@Override
-	public String toString() {
-		return "DiaNhac [thoiLuong=" + thoiLuong + ", caSy=" + caSy + ", danhsachBaiHat="
-				+ danhsachBaiHat + "]";
-	}
 	
 }

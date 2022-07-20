@@ -1,22 +1,23 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class KhachHang {
 	private String ten;
 	private String maKh;
-	private String diaChi;
-	private Long sdt;
 	private String gioiTinh;
-	private Date ngaySinh;
+	private String diaChi;
+	private String sdt;
+	private LocalDate ngaySinh;
 
-	public KhachHang(String ten, String maKh, String diaChi, Long sdt, String gioiTinh, Date ngaySinh) {
+	public KhachHang(String ten, String maKh, String gioiTinh, String diaChi, String sdt, LocalDate ngaySinh) {
 		super();
 		this.ten = ten;
 		this.maKh = maKh;
+		this.gioiTinh = gioiTinh;
 		this.diaChi = diaChi;
 		this.sdt = sdt;
-		this.gioiTinh = gioiTinh;
 		this.ngaySinh = ngaySinh;
 	}
 
@@ -32,24 +33,8 @@ public class KhachHang {
 		return maKh;
 	}
 
-	public void setMaKh(String s) {
-		this.maKh = s;
-	}
-
-	public String getDiaChi() {
-		return diaChi;
-	}
-
-	public void setDiaChi(String diaChi) {
-		this.diaChi = diaChi;
-	}
-
-	public Long getSdt() {
-		return sdt;
-	}
-
-	public void setSdt(Long sdt) {
-		this.sdt = sdt;
+	public void setMaKh(String maKh) {
+		this.maKh = maKh;
 	}
 
 	public String getGioiTinh() {
@@ -60,11 +45,33 @@ public class KhachHang {
 		this.gioiTinh = gioiTinh;
 	}
 
-	public Date getNgaySinh() {
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
+
+	public String getSdt() {
+		return sdt;
+	}
+
+	public void setSdt(String sdt) {
+		this.sdt = sdt;
+	}
+
+	public LocalDate getNgaySinh() {
 		return ngaySinh;
 	}
 
-	public void setNgaySinh(Date ngaySinh) {
+	public void setNgaySinh(LocalDate ngaySinh) {
 		this.ngaySinh = ngaySinh;
+	}
+
+	public String luuVaoData(KhachHang kh) {
+		DateTimeFormatter f = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		String dateFormat = kh.ngaySinh.format(f);
+		return kh.ten + "::" + kh.maKh + "::" + kh.gioiTinh + "::" + kh.diaChi + "::" + kh.sdt + "::" + dateFormat;
 	}
 }
