@@ -170,20 +170,26 @@ public class HeThong {
 								System.out.println("Ngay 2 (dd/MM/yyyy) : ");
 								Date date2 = (Date) df.parse(sc.nextLine());
 
-								System.out.println();
-								System.out.println("Doanh thu trong khoang thoi gian da nhap la: "
-										+ quanLyHoaDon.tinhDoanhThu(date1, date2));
-								double loiNhuan = quanLyHoaDon.tinhLaiTheoHoaDon(date1, date2)
-										- quanLyNhanVien.tongLuong(date1, date2);
-								if (loiNhuan < 0) {
-									System.out.println("Lo: " + loiNhuan);
+								if(date1.before(date2)) {
+									
+									System.out.println();
+									System.out.println("Doanh thu trong khoang thoi gian da nhap la: "
+											+ quanLyHoaDon.tinhDoanhThu(date1, date2));
+									double loiNhuan = quanLyHoaDon.tinhLaiTheoHoaDon(date1, date2)
+											- quanLyNhanVien.tongLuong(date1, date2);
+									if (loiNhuan < 0) {
+										System.out.println("Lo: " + loiNhuan);
+									}
+									if (loiNhuan == 0) {
+										System.out.println("Hoa von!");
+									}
+									if (loiNhuan > 0) {
+										System.out.println("Lai: " + loiNhuan);
+									}
+								}else {
+									throw new Exception();
 								}
-								if (loiNhuan == 0) {
-									System.out.println("Hoa von!");
-								}
-								if (loiNhuan > 0) {
-									System.out.println("Lai: " + loiNhuan);
-								}
+								
 							} catch (Exception e) {
 								System.out.println("Ban da nhap sai xin vui long nhap lai!");
 							}
