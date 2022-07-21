@@ -1,13 +1,14 @@
 package model;
 
 import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
 
 public class HoaDonXuat extends HoaDon {
 	private String giaBan;
 
-	public HoaDonXuat(KhachHang khachHang, String maSanPham, LocalDate ngayMua, double soLuong, String giaBan) {
-		super(khachHang, maSanPham, ngayMua, soLuong);
+	public HoaDonXuat(String maKhachHang, String maSanPham, LocalDate ngayMua, double soLuong, String giaBan) {
+		super(maKhachHang, maSanPham, ngayMua, soLuong);
 		this.giaBan = giaBan;
 	}
 
@@ -19,10 +20,10 @@ public class HoaDonXuat extends HoaDon {
 		this.giaBan = giaBan;
 	}
 
-	public String luuVaoData(HoaDonXuat hdx) {
+	public String luuVaoData() {
 		DateTimeFormatter f = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		String dateFormat = hdx.getNgayMua().format(f);
-		return hdx.getKhachHang() + "::" + hdx.getMaSanPham() + "::" + dateFormat + "::"
-				+ String.format("%1f", hdx.getSoLuong()) + "::" + hdx.getGiaBan();
+		String dateFormat = this.getNgayMua().format(f);
+		return this.getMaKhachHang() + "::" + this.getMaSanPham() + "::" + dateFormat + "::"
+				+ String.format("%1f", this.getSoLuong()) + "::" + this.getGiaBan();
 	}
 }

@@ -3,25 +3,25 @@ package model;
 import java.time.LocalDate;
 
 public class HoaDon {
-	private KhachHang khachHang;
+	private String maKhachHang;
 	private String maSanPham;
 	private LocalDate ngayMua;
 	private double soLuong;
 
-	public HoaDon(KhachHang khachHang, String maSanPham, LocalDate ngayMua, double soLuong) {
+	public HoaDon(String maKhachHang, String maSanPham, LocalDate ngayMua, double soLuong) {
 		super();
-		this.khachHang = khachHang;
+		this.maKhachHang = maKhachHang;
 		this.maSanPham = maSanPham;
 		this.ngayMua = ngayMua;
 		this.soLuong = soLuong;
 	}
 
-	public KhachHang getKhachHang() {
-		return khachHang;
+	public String getMaKhachHang() {
+		return maKhachHang;
 	}
 
-	public void setKhachHang(KhachHang khachHang) {
-		this.khachHang = khachHang;
+	public void setMaKhachHang(String maKhachHang) {
+		this.maKhachHang = maKhachHang;
 	}
 
 	public String getMaSanPham() {

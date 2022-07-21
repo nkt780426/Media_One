@@ -101,11 +101,11 @@ public class NhanVien {
 		this.luong = luong;
 	}
 	
-	public String luuVaoData(NhanVien nv) {
+	public String luuVaoData() {
 		DateTimeFormatter f = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		String dateFormat = nv.ngaySinh.format(f);
-		return nv.ten + "::" + nv.maNV + "::" + nv.gioiTinh + "::" + nv.diaChi + "::" + nv.sdt + "::" + dateFormat + "::"
-				+ nv.ngayNhanLuong + "::" + String.format("%1f", nv.luong);
+		String dateFormat = this.ngaySinh.format(f);
+		return this.ten + "::" + this.maNV + "::" + this.gioiTinh + "::" + this.diaChi + "::" + this.sdt + "::" + dateFormat + "::"
+				+ this.ngayNhanLuong + "::" + String.format("%1f", this.luong);
 	}
 
 	@Override

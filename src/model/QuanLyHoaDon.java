@@ -1,18 +1,16 @@
 package model;
 
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class QuanLyHoaDon {
@@ -21,6 +19,7 @@ public class QuanLyHoaDon {
 	private QuanLyNhanVien quanLyNhanVien;
 	private ArrayList<HoaDonXuat> xuat = new ArrayList<>();
 	private ArrayList<HoaDonNhap> nhap = new ArrayList<>();
+
 	public String header1 = String.format("%10s%25s%20s%25s%25s%20s", "Ma Khach Hang", "Ten", "Ma san pham", "So Luong",
 			"Ngay Mua", "Gia Ban");
 	public String header2 = String.format("%10s%25s%20s%25s%25s%20s", "Ma Khach Hang", "Ten", "Ma san pham", "So Luong",
@@ -33,7 +32,8 @@ public class QuanLyHoaDon {
 	public HoaDonXuat castToHoaDonXuat(String[] line) {
 		try {
 			DateTimeFormatter f = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-			HoaDonXuat hdx = new HoaDonXuat(line[0], line[1], line[2], line[3], line[4], LocalDate.parse(line[5], f));
+			HoaDonXuat hdx = new HoaDonXuat(line[0], line[1], LocalDate.parse(line[2], f), Double.parseDouble(line[3]),
+					line[4]);
 			return hdx;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,22 +41,49 @@ public class QuanLyHoaDon {
 		return null;
 	}
 
-	public QuanLyHoaDon() throws IOException {
-		ArrayList<String> khList = (ArrayList<String>) Files.readAllLines(p);
+	public HoaDonNhap castToHoaDonNhap(String[] line) {
+		try {
+			DateTimeFormatter f = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+			HoaDonNhap hdn = new HoaDonNhap(line[0], line[1], LocalDate.parse(line[2], f), Double.parseDouble(line[3]),
+					line[4]);
+			return hdn;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
-		khList.stream().forEach((e) -> {
-			String[] code = e.split("::");
-			//them vao danh sach
+	public QuanLyHoaDon() throws IOException {
+		ArrayList<String> hdxList = (ArrayList<String>) Files.readAllLines(p1);
+		hdxList.stream().forEach((e) -> {
+			String[] code1 = e.split("::");
+			xuat.add(castToHoaDonXuat(code1));
+		});
+		ArrayList<String> hdnList = (ArrayList<String>) Files.readAllLines(p2);
+		hdnList.stream().forEach((e) -> {
+			String[] code2 = e.split("::");
+			nhap.add(castToHoaDonNhap(code2));
 		});
 	}
 
 	private void confirmData() {
-		List<String> temp = new ArrayList<>();
-		for (Map.Entry<String, KhachHang> e : dsKhachHang.entrySet()) {
-			temp.add(e.getValue().luuVaoData(e.getValue()));
+
+		List<String> temp1 = new ArrayList<>();
+		for (HoaDonXuat hoaDonXuat : xuat) {
+			temp1.add(hoaDonXuat.luuVaoData());
 		}
 		try {
-			Files.write(p, temp);
+			Files.write(p1, temp1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		List<String> temp2 = new ArrayList<>();
+		for (HoaDonXuat hoaDonXuat : xuat) {
+			temp2.add(hoaDonXuat.luuVaoData());
+		}
+		try {
+			Files.write(p2, temp2);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -110,12 +137,13 @@ public class QuanLyHoaDon {
 			}
 			int a = sach.getSoLuong();
 			sach.setSoLuong(a - soLuong);
-			HoaDonNhap donNhap = new HoaDonNhap(khachHang, maSanPham, ngayMua, soLuong,
+			HoaDonNhap donNhap = new HoaDonNhap(khachHang.getMaKh(), maSanPham, ngayMua, soLuong,
 					String.valueOf(quanLySanPham.getDsSach().get(maSanPham).getGiaBuon()));
 			nhap.add(donNhap);
-			HoaDonXuat donXuat = new HoaDonXuat(khachHang, maSanPham, ngayMua, soLuong,
+			HoaDonXuat donXuat = new HoaDonXuat(khachHang.getMaKh(), maSanPham, ngayMua, soLuong,
 					String.valueOf(quanLySanPham.getDsSach().get(maSanPham).getGiaBan()));
 			xuat.add(donXuat);
+			confirmData();
 			return donXuat;
 		}
 		if (sanPham instanceof DiaPhim) {
@@ -139,12 +167,13 @@ public class QuanLyHoaDon {
 			}
 			int a = diaPhim.getSoLuong();
 			diaPhim.setSoLuong(a - soLuong);
-			HoaDonNhap donNhap = new HoaDonNhap(khachHang, maSanPham, ngayMua, soLuong,
+			HoaDonNhap donNhap = new HoaDonNhap(khachHang.getMaKh(), maSanPham, ngayMua, soLuong,
 					String.valueOf(quanLySanPham.getDsSach().get(maSanPham).getGiaBuon()));
 			nhap.add(donNhap);
-			HoaDonXuat donXuat = new HoaDonXuat(khachHang, maSanPham, ngayMua, soLuong,
+			HoaDonXuat donXuat = new HoaDonXuat(khachHang.getMaKh(), maSanPham, ngayMua, soLuong,
 					String.valueOf(quanLySanPham.getDsSach().get(maSanPham).getGiaBan()));
 			xuat.add(donXuat);
+			confirmData();
 			return donXuat;
 		}
 		if (sanPham instanceof DiaNhac) {
@@ -168,23 +197,27 @@ public class QuanLyHoaDon {
 			}
 			int a = diaNhac.getSoLuong();
 			diaNhac.setSoLuong(a - soLuong);
-			HoaDonNhap donNhap = new HoaDonNhap(khachHang, maSanPham, ngayMua, soLuong,
+			HoaDonNhap donNhap = new HoaDonNhap(khachHang.getMaKh(), maSanPham, ngayMua, soLuong,
 					String.valueOf(quanLySanPham.getDsSach().get(maSanPham).getGiaBuon()));
 			nhap.add(donNhap);
-			HoaDonXuat donXuat = new HoaDonXuat(khachHang, maSanPham, ngayMua, soLuong,
+			HoaDonXuat donXuat = new HoaDonXuat(khachHang.getMaKh(), maSanPham, ngayMua, soLuong,
 					String.valueOf(quanLySanPham.getDsSach().get(maSanPham).getGiaBan()));
 			xuat.add(donXuat);
+			confirmData();
 			return donXuat;
 		}
+		return null;
 	}
 
 	// xuat toan bo hoa don xuat
 	public void xuatToanBoHoaDonXuat() {
 		System.out.println(header1);
 		for (HoaDonXuat hoaDonXuat : xuat) {
-			String row = String.format("%10s%25s%20s%25s%25s%20s", hoaDonXuat.getKhachHang().getMaKh(),
-					hoaDonXuat.getKhachHang().getTen(), hoaDonXuat.getMaSanPham(), hoaDonXuat.getSoLuong(),
-					hoaDonXuat.getNgayMua(), hoaDonXuat.getGiaBan());
+			String row = String.format("%10s%25s%20s%25s%25s%20s",
+					quanLyKhachHang.getDsKhachHang().get(hoaDonXuat.getMaKhachHang()),
+					quanLyKhachHang.getDsKhachHang().get(hoaDonXuat.getMaKhachHang()).getTen(),
+					hoaDonXuat.getMaSanPham(), hoaDonXuat.getSoLuong(), hoaDonXuat.getNgayMua(),
+					hoaDonXuat.getGiaBan());
 			System.out.println(row);
 		}
 	}
@@ -193,9 +226,11 @@ public class QuanLyHoaDon {
 	public void xuatToanBoHoaDonNhap() {
 		System.out.println(header2);
 		for (HoaDonNhap hoaDonNhap : nhap) {
-			String row = String.format("%10s%25s%20s%25s%25s%20s", hoaDonNhap.getKhachHang().getMaKh(),
-					hoaDonNhap.getKhachHang().getTen(), hoaDonNhap.getMaSanPham(), hoaDonNhap.getSoLuong(),
-					hoaDonNhap.getNgayMua(), hoaDonNhap.getGiaBuon());
+			String row = String.format("%10s%25s%20s%25s%25s%20s",
+					quanLyKhachHang.getDsKhachHang().get(hoaDonNhap.getMaKhachHang()),
+					quanLyKhachHang.getDsKhachHang().get(hoaDonNhap.getMaKhachHang()).getTen(),
+					hoaDonNhap.getMaSanPham(), hoaDonNhap.getSoLuong(), hoaDonNhap.getNgayMua(),
+					hoaDonNhap.getGiaBuon());
 			System.out.println(row);
 		}
 	}
@@ -213,17 +248,14 @@ public class QuanLyHoaDon {
 
 	// TinhLaitheohoadon
 	public double tinhLaiTheoHoaDon(LocalDate date1, LocalDate date2) {
-		double lai = 0;
-		try {
+			double lai = 0;
+			//trong for-each lai=tong giaBuon
 			for (HoaDonNhap hoaDonNhap : nhap) {
 				if (hoaDonNhap.getNgayMua().compareTo(date1) >= 0 && hoaDonNhap.getNgayMua().compareTo(date2) <= 0) {
 					lai += Double.parseDouble(hoaDonNhap.getGiaBuon());
 				}
 			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return tinhDoanhThu(date1, date2) - tinhLaiTheoHoaDon(date1, date2);
+		return tinhDoanhThu(date1, date2) - lai;
 	}
 
 	public void tinhLai() {

@@ -48,7 +48,7 @@ public class QuanLyNhanVien {
 	private void confirmData() {
 		List<String> temp = new ArrayList<>();
 		for (Map.Entry<String, NhanVien> e : dsNhanVien.entrySet()) {
-			temp.add(e.getValue().luuVaoData(e.getValue()));
+			temp.add(e.getValue().luuVaoData());
 		}
 		try {
 			Files.write(p, temp);

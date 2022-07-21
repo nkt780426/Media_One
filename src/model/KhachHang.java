@@ -69,9 +69,9 @@ public class KhachHang {
 		this.ngaySinh = ngaySinh;
 	}
 
-	public String luuVaoData(KhachHang kh) {
+	public String luuVaoData() {
 		DateTimeFormatter f = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		String dateFormat = kh.ngaySinh.format(f);
-		return kh.ten + "::" + kh.maKh + "::" + kh.gioiTinh + "::" + kh.diaChi + "::" + kh.sdt + "::" + dateFormat;
+		String dateFormat = this.ngaySinh.format(f);
+		return this.ten + "::" + this.maKh + "::" + this.gioiTinh + "::" + this.diaChi + "::" + this.sdt + "::" + dateFormat;
 	}
 }

@@ -23,6 +23,14 @@ public class QuanLyKhachHang {
 
 	Path p = Paths.get("./data/KhachHang.txt");
 
+	public HashMap<String, KhachHang> getDsKhachHang() {
+		return dsKhachHang;
+	}
+
+	public void setDsKhachHang(HashMap<String, KhachHang> dsKhachHang) {
+		this.dsKhachHang = dsKhachHang;
+	}
+
 	public KhachHang castToKhachHang(String[] line) {
 		try {
 			DateTimeFormatter f = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -46,7 +54,7 @@ public class QuanLyKhachHang {
 	private void confirmData() {
 		List<String> temp = new ArrayList<>();
 		for (Map.Entry<String, KhachHang> e : dsKhachHang.entrySet()) {
-			temp.add(e.getValue().luuVaoData(e.getValue()));
+			temp.add(e.getValue().luuVaoData());
 		}
 		try {
 			Files.write(p, temp);
@@ -213,24 +221,31 @@ public class QuanLyKhachHang {
 	// mua hang
 	public void muaHang() {
 		KhachHang khachHang = themKhachHang();
-		System.out.println("Nhap so loai hang muon mua: ");
-		int a = sc.nextInt();
-		if (a <= 0)
-			throw new InputMismatchException();
-		ArrayList<HoaDonXuat> hoaDonXuat = new ArrayList<HoaDonXuat>();
-		for (int i = 1; i <= a; i++) {
-			HoaDonXuat donXuat = quanLyHoaDon.muaHang(khachHang);
-			hoaDonXuat.add(donXuat);
-		}
-		System.out.println("Danh sach don hang: ");
-		System.out.println(quanLyHoaDon.header1);
-		for (HoaDonXuat donXuat : hoaDonXuat) {
-			if (hoaDonXuat != null) {
-				String row = String.format("%10s%25s%15s%25s%25s%25s", donXuat.getKhachHang().getMaKh(),
-						donXuat.getKhachHang().getTen(), donXuat.getMaSanPham(), donXuat.getSoLuong(),
-						donXuat.getNgayMua(), donXuat.getGiaBan());
-				System.out.println(row);
+		int a;
+		while (true) {
+			System.out.println("Nhap so loai hang muon mua: ");
+			try {
+				int a1 = sc.nextInt();
+				if (a1 < 0)
+					throw new Exception();
+				a = a1;
+				break;
+			} catch (Exception e) {
+				System.out.println("Ban da nhap sai xin vui long nhap lai!");
 			}
+
+		}
+		ArrayList<HoaDonXuat> allHoaDon = new ArrayList<HoaDonXuat>();
+		for (int i = 1; i <= a; i++) {
+			HoaDonXuat hoaDonXuat = quanLyHoaDon.muaHang(khachHang);
+			allHoaDon.add(hoaDonXuat);
+		}
+		System.out.println("------Danh sach don hang------: ");
+		System.out.println(quanLyHoaDon.header1);
+		for (HoaDonXuat donXuat : allHoaDon) {
+			String row = String.format("%10s%25s%15s%25s%25s%25s", donXuat.getMaKhachHang(), dsKhachHang.get(donXuat.getMaKhachHang()).getTen(),
+					donXuat.getMaSanPham(), donXuat.getSoLuong(), donXuat.getNgayMua(), donXuat.getGiaBan());
+			System.out.println(row);
 		}
 	}
 }
