@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class QuanLyHoaDon {
-	private QuanLyKhachHang quanLyKhachHang;
-	private QuanLySanPham quanLySanPham;
-	private QuanLyNhanVien quanLyNhanVien;
+	public QuanLyKhachHang quanLyKhachHang = new QuanLyKhachHang();
+	public QuanLySanPham quanLySanPham = new QuanLySanPham();
+	public QuanLyNhanVien quanLyNhanVien = new QuanLyNhanVien();
 	private ArrayList<HoaDonXuat> xuat = new ArrayList<>();
 	private ArrayList<HoaDonNhap> nhap = new ArrayList<>();
 
@@ -209,6 +209,38 @@ public class QuanLyHoaDon {
 		return null;
 	}
 
+	// Xuat hoa don cho khach
+	public void xuatHoaDon() {
+		KhachHang khachHang = quanLyKhachHang.themKhachHang();
+		int a;
+		while (true) {
+			System.out.println("Nhap so loai hang muon mua: ");
+			try {
+				int a1 = sc.nextInt();
+				if (a1 < 0)
+					throw new Exception();
+				a = a1;
+				break;
+			} catch (Exception e) {
+				System.out.println("Ban da nhap sai xin vui long nhap lai!");
+			}
+
+		}
+		ArrayList<HoaDonXuat> allHoaDon = new ArrayList<HoaDonXuat>();
+		for (int i = 1; i <= a; i++) {
+			HoaDonXuat hoaDonXuat = muaHang(khachHang);
+			allHoaDon.add(hoaDonXuat);
+		}
+		System.out.println("------Danh sach don hang------: ");
+		System.out.println(header1);
+		for (HoaDonXuat donXuat : allHoaDon) {
+			String row = String.format("%10s%25s%15s%25s%25s%25s", donXuat.getMaKhachHang(),
+					quanLyKhachHang.getDsKhachHang().get(donXuat.getMaKhachHang()).getTen(), donXuat.getMaSanPham(),
+					donXuat.getSoLuong(), donXuat.getNgayMua(), donXuat.getGiaBan());
+			System.out.println(row);
+		}
+	}
+
 	// xuat toan bo hoa don xuat
 	public void xuatToanBoHoaDonXuat() {
 		System.out.println(header1);
@@ -248,13 +280,13 @@ public class QuanLyHoaDon {
 
 	// TinhLaitheohoadon
 	public double tinhLaiTheoHoaDon(LocalDate date1, LocalDate date2) {
-			double lai = 0;
-			//trong for-each lai=tong giaBuon
-			for (HoaDonNhap hoaDonNhap : nhap) {
-				if (hoaDonNhap.getNgayMua().compareTo(date1) >= 0 && hoaDonNhap.getNgayMua().compareTo(date2) <= 0) {
-					lai += Double.parseDouble(hoaDonNhap.getGiaBuon());
-				}
+		double lai = 0;
+		// trong for-each lai=tong giaBuon
+		for (HoaDonNhap hoaDonNhap : nhap) {
+			if (hoaDonNhap.getNgayMua().compareTo(date1) >= 0 && hoaDonNhap.getNgayMua().compareTo(date2) <= 0) {
+				lai += Double.parseDouble(hoaDonNhap.getGiaBuon());
 			}
+		}
 		return tinhDoanhThu(date1, date2) - lai;
 	}
 

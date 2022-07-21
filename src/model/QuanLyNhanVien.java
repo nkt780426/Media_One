@@ -57,7 +57,6 @@ public class QuanLyNhanVien {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	private boolean checkSDT(String sdt) {
 		if (sdt.charAt(0) != '0') {
 			System.out.println("SDT bat dau tu 0!");
@@ -65,14 +64,14 @@ public class QuanLyNhanVien {
 		} else {
 			for (int i = 1; i < sdt.length(); i++) {
 				if (sdt.charAt(i) >= '0' && sdt.charAt(i) <= '9') {
-					return true;
+					continue;
 				} else {
 					System.out.println("SDT khong duoc chua ki tu khac so!");
 					return false;
 				}
 			}
 		}
-		return true;
+		return false;
 	}
 
 	// Them NV theo hash Map
@@ -289,7 +288,6 @@ public class QuanLyNhanVien {
 
 	// tinh tong luong
 	public double tongLuong(LocalDate date1, LocalDate date2) {
-		double tongLuong = 0;
-		return tongLuong;
+		return 0;
 	}
 }

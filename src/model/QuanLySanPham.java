@@ -1,11 +1,10 @@
 package model;
 
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -68,13 +67,13 @@ public class QuanLySanPham {
 		ArrayList<String> diaPhimList = (ArrayList<String>) Files.readAllLines(p2);
 		diaPhimList.stream().forEach((e) -> {
 			String[] code = e.split("::");
-			dsSach.put(code[0], castToSach(code));
+			dsDiaPhim.put(code[0], castToDiaPhim(code));
 		});
 
 		ArrayList<String> diaNhac = (ArrayList<String>) Files.readAllLines(p3);
 		diaNhac.stream().forEach((e) -> {
 			String[] code = e.split("::");
-			dsSach.put(code[0], castToSach(code));
+			dsDiaNhac.put(code[0], castToDiaNhac(code));
 		});
 	}
 
@@ -96,7 +95,7 @@ public class QuanLySanPham {
 			temp.add(e.getValue().luuVaoData());
 		}
 		try {
-			Files.write(p1, temp);
+			Files.write(p2, temp);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -108,7 +107,7 @@ public class QuanLySanPham {
 			temp.add(e.getValue().luuVaoData());
 		}
 		try {
-			Files.write(p1, temp);
+			Files.write(p3, temp);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -175,7 +174,7 @@ public class QuanLySanPham {
 		return null;
 	}
 
-	// them san pham:c
+	// them san pham:
 
 	public void themSach() {
 		System.out.println("Nhap thong tin san pham: ");
@@ -260,7 +259,7 @@ public class QuanLySanPham {
 			}
 
 		}
-		
+
 		sc.nextLine();
 
 		System.out.println("Nha xuat ban: ");
@@ -275,6 +274,7 @@ public class QuanLySanPham {
 		System.out.println("Ban da them thanh cong");
 
 	}
+
 	public void themDiaPhim() {
 		System.out.println("Nhap thong tin san pham: ");
 
@@ -360,7 +360,6 @@ public class QuanLySanPham {
 		}
 		System.out.println("Nhap thoi luong");
 		String thoiLuong = sc.nextLine();
-		
 
 		System.out.println("Dao dien: ");
 		String daoDien = sc.nextLine();
@@ -368,12 +367,14 @@ public class QuanLySanPham {
 		System.out.println("Dien vien: ");
 		String dienVien = sc.nextLine();
 
-		DiaPhim diaPhim = new DiaPhim(maSanPham, tenSP, namPhatHanh, soLuong, giaBuon, giaBan, thoiLuong, daoDien, dienVien);
+		DiaPhim diaPhim = new DiaPhim(maSanPham, tenSP, namPhatHanh, soLuong, giaBuon, giaBan, thoiLuong, daoDien,
+				dienVien);
 		this.dsDiaPhim.put(diaPhim.getMaSp(), diaPhim);
 		confirmDataDiaPhim();
 		System.out.println("Ban da them thanh cong");
 
 	}
+
 	public void themDiaNhac() {
 		System.out.println("Nhap thong tin san pham: ");
 
@@ -459,15 +460,15 @@ public class QuanLySanPham {
 		}
 		System.out.println("Nhap thoi luong");
 		String thoiLuong = sc.nextLine();
-		
 
 		System.out.println("Ca sy: ");
 		String caSy = sc.nextLine();
 
 		System.out.println("Danh sach bai hat: ");
 		String danhSachBaiHat = sc.nextLine();
-		
-		DiaNhac diaNhac = new DiaNhac(maSanPham, tenSP, namPhatHanh, soLuong, giaBuon, giaBan, thoiLuong, caSy, danhSachBaiHat);
+
+		DiaNhac diaNhac = new DiaNhac(maSanPham, tenSP, namPhatHanh, soLuong, giaBuon, giaBan, thoiLuong, caSy,
+				danhSachBaiHat);
 		this.dsDiaNhac.put(diaNhac.getMaSp(), diaNhac);
 		confirmDataDiaNhac();
 		System.out.println("Ban da them thanh cong");
@@ -500,14 +501,299 @@ public class QuanLySanPham {
 	}
 
 	public void capNhatThongTinSanPham() {
-		xoaSanPham();
+		System.out.print("Nhap ma san pham: ");
+		String ma = sc.nextLine();
+		if ((dsSach.containsKey(ma)) || (dsDiaPhim.containsKey(ma)) || (dsDiaNhac.containsKey(ma))) {
+			if (dsSach.containsKey(ma)) {
+				dsSach.remove(ma);
+				try {
+					System.out.print("Nhap ten san pham: ");
+					String tenSp = sc.nextLine();
+
+					int namPhatHanh;
+					while (true) {
+						try {
+							System.out.println("Nam phat hanh: ");
+							int namPhatHanh1 = sc.nextInt();
+							if (namPhatHanh1 <= 0) {
+								System.out.println("Nam phat hanh phai lon hon 0, vui long nhap lai!");
+								continue;
+							}
+							namPhatHanh = namPhatHanh1;
+							break;
+
+						} catch (NumberFormatException e) {
+							System.out.println("Ban da nhap sai vui long nhap lai!");
+						}
+
+					}
+					double giaBuon;
+					while (true) {
+						try {
+							System.out.println("Gia buon: ");
+							double giaBuon1 = sc.nextDouble();
+							if (giaBuon1 <= 0) {
+								System.out.println("Nam phat hanh phai lon hon 0, vui long nhap lai!");
+								continue;
+							}
+							giaBuon = giaBuon1;
+							break;
+						} catch (NumberFormatException e) {
+							System.out.println("Ban da nhap sai vui long nhap lai!");
+						}
+					}
+					double giaBan;
+					while (true) {
+						try {
+							System.out.println("Gia ban: ");
+							double giaBan1 = sc.nextDouble();
+							if (giaBan1 <= 0) {
+								System.out.println("Nam phat hanh phai lon hon 0, vui long nhap lai!");
+								continue;
+							}
+							giaBan = giaBan1;
+							break;
+
+						} catch (NumberFormatException e) {
+							System.out.println("Ban da nhap sai vui long nhap lai!");
+						}
+					}
+					int soLuong;
+					while (true) {
+						try {
+							System.out.println("So luong: ");
+							int soLuong1 = sc.nextInt();
+							if (soLuong1 <= 0) {
+								System.out.println("Nam phat hanh phai lon hon 0, vui long nhap lai!");
+								continue;
+							}
+							soLuong = soLuong1;
+							break;
+
+						} catch (NumberFormatException e) {
+							System.out.println("Ban da nhap sai vui long nhap lai!");
+						}
+
+					}
+
+					sc.nextLine();
+
+					System.out.println("Nha xuat ban: ");
+					String nhaXuatBan = sc.nextLine();
+
+					System.out.println("Tac gia: ");
+					String tacGia = sc.nextLine();
+
+					Sach sach = new Sach(ma, tenSp, namPhatHanh, soLuong, giaBuon, giaBan, tacGia, nhaXuatBan);
+					this.dsSach.put(sach.getMaSp(), sach);
+					confirmDataSach();
+					System.out.println("Ban da them thanh cong");
+
+				} catch (InputMismatchException e) {
+					System.out.println("Ban da nhap sai gia tri, xin vui long nhap lai!");
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+			}
+			if (dsDiaPhim.containsKey(ma)) {
+				dsDiaPhim.remove(ma);
+				try {
+					System.out.print("Nhap ten san pham: ");
+					String tenSp = sc.nextLine();
+
+					int namPhatHanh;
+					while (true) {
+						try {
+							System.out.println("Nam phat hanh: ");
+							int namPhatHanh1 = sc.nextInt();
+							if (namPhatHanh1 <= 0) {
+								System.out.println("Nam phat hanh phai lon hon 0, vui long nhap lai!");
+								continue;
+							}
+							namPhatHanh = namPhatHanh1;
+							break;
+
+						} catch (NumberFormatException e) {
+							System.out.println("Ban da nhap sai vui long nhap lai!");
+						}
+
+					}
+					double giaBuon;
+					while (true) {
+						try {
+							System.out.println("Gia buon: ");
+							double giaBuon1 = sc.nextDouble();
+							if (giaBuon1 <= 0) {
+								System.out.println("Nam phat hanh phai lon hon 0, vui long nhap lai!");
+								continue;
+							}
+							giaBuon = giaBuon1;
+							break;
+						} catch (NumberFormatException e) {
+							System.out.println("Ban da nhap sai vui long nhap lai!");
+						}
+					}
+					double giaBan;
+					while (true) {
+						try {
+							System.out.println("Gia ban: ");
+							double giaBan1 = sc.nextDouble();
+							if (giaBan1 <= 0) {
+								System.out.println("Nam phat hanh phai lon hon 0, vui long nhap lai!");
+								continue;
+							}
+							giaBan = giaBan1;
+							break;
+
+						} catch (NumberFormatException e) {
+							System.out.println("Ban da nhap sai vui long nhap lai!");
+						}
+					}
+					int soLuong;
+					while (true) {
+						try {
+							System.out.println("So luong: ");
+							int soLuong1 = sc.nextInt();
+							if (soLuong1 <= 0) {
+								System.out.println("Nam phat hanh phai lon hon 0, vui long nhap lai!");
+								continue;
+							}
+							soLuong = soLuong1;
+							break;
+
+						} catch (NumberFormatException e) {
+							System.out.println("Ban da nhap sai vui long nhap lai!");
+						}
+					}
+
+					sc.nextLine();
+
+					System.out.println("Thoi luong: ");
+					String thoiLuong = sc.nextLine();
+
+					System.out.println("Dao dien: ");
+					String daoDien = sc.nextLine();
+
+					System.out.println("Dien vien: ");
+					String dienVien = sc.nextLine();
+
+					DiaPhim diaPhim = new DiaPhim(ma, tenSp, namPhatHanh, soLuong, giaBuon, giaBan, thoiLuong, daoDien,
+							dienVien);
+					this.dsDiaPhim.put(diaPhim.getMaSp(), diaPhim);
+					confirmDataDiaPhim();
+					System.out.println("Ban da them thanh cong");
+
+				} catch (InputMismatchException e) {
+					System.out.println("Ban da nhap sai gia tri, xin vui long nhap lai!");
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+			}
+			if (dsDiaNhac.containsKey(ma)) {
+				dsDiaNhac.remove(ma);
+				try {
+					System.out.print("Nhap ten san pham: ");
+					String tenSp = sc.nextLine();
+
+					int namPhatHanh;
+					while (true) {
+						try {
+							System.out.println("Nam phat hanh: ");
+							int namPhatHanh1 = sc.nextInt();
+							if (namPhatHanh1 <= 0) {
+								System.out.println("Nam phat hanh phai lon hon 0, vui long nhap lai!");
+								continue;
+							}
+							namPhatHanh = namPhatHanh1;
+							break;
+
+						} catch (NumberFormatException e) {
+							System.out.println("Ban da nhap sai vui long nhap lai!");
+						}
+
+					}
+					double giaBuon;
+					while (true) {
+						try {
+							System.out.println("Gia buon: ");
+							double giaBuon1 = sc.nextDouble();
+							if (giaBuon1 <= 0) {
+								System.out.println("Nam phat hanh phai lon hon 0, vui long nhap lai!");
+								continue;
+							}
+							giaBuon = giaBuon1;
+							break;
+						} catch (NumberFormatException e) {
+							System.out.println("Ban da nhap sai vui long nhap lai!");
+						}
+					}
+					double giaBan;
+					while (true) {
+						try {
+							System.out.println("Gia ban: ");
+							double giaBan1 = sc.nextDouble();
+							if (giaBan1 <= 0) {
+								System.out.println("Nam phat hanh phai lon hon 0, vui long nhap lai!");
+								continue;
+							}
+							giaBan = giaBan1;
+							break;
+
+						} catch (NumberFormatException e) {
+							System.out.println("Ban da nhap sai vui long nhap lai!");
+						}
+					}
+					int soLuong;
+					while (true) {
+						try {
+							System.out.println("So luong: ");
+							int soLuong1 = sc.nextInt();
+							if (soLuong1 <= 0) {
+								System.out.println("Nam phat hanh phai lon hon 0, vui long nhap lai!");
+								continue;
+							}
+							soLuong = soLuong1;
+							break;
+
+						} catch (NumberFormatException e) {
+							System.out.println("Ban da nhap sai vui long nhap lai!");
+						}
+
+					}
+
+					sc.nextLine();
+
+					System.out.println("Thoi luong: ");
+					String thoiLuong = sc.nextLine();
+
+					System.out.println("Ca sy: ");
+					String caSy = sc.nextLine();
+
+					System.out.println("Danh sach bai hat: ");
+					String danhSachBaiHat = sc.nextLine();
+
+					DiaNhac diaNhac = new DiaNhac(ma, tenSp, namPhatHanh, soLuong, giaBuon, giaBan, thoiLuong, caSy,
+							danhSachBaiHat);
+					this.dsDiaNhac.put(diaNhac.getMaSp(), diaNhac);
+					confirmDataDiaNhac();
+					System.out.println("Ban da them thanh cong");
+				} catch (InputMismatchException e) {
+					System.out.println("Ban da nhap sai gia tri, xin vui long nhap lai!");
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+			}
+		} else {
+			System.out.println("Ma san pham khong ton tai!");
+		}
 	}
+
 	// thiet ke laoi ham main
 
-	public void hienThiSach() {
+	public void xemToanBoSach() {
 		System.out.println("Danh sach san pham");
-		String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham", "Ten san pham", "Nam phat hanh",
-				"So luong", "Gia buon", "Gia ban", "Tac gia", "Nha xuat ban");
+		String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham", "Ten san pham",
+				"Nam phat hanh", "So luong", "Gia buon", "Gia ban", "Tac gia", "Nha xuat ban");
 		System.out.println(header);
 		for (Map.Entry<String, Sach> entry : dsSach.entrySet()) {
 			String row = String.format("%10s%30s%30s%30s%30s%30s%30s%30s", entry.getValue().getMaSp(),
@@ -518,35 +804,35 @@ public class QuanLySanPham {
 		}
 	}
 
-	public void hienThiDiaPhim() {
+	public void xemToanBoDiaPhim() {
 		System.out.println("Danh sach san pham");
-		String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham", "Ten san pham", "Nam phat hanh",
-				"So luong", "Gia buon", "Gia ban","Thoi luong", "Dao dien", "Dien vien");
+		String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham", "Ten san pham",
+				"Nam phat hanh", "So luong", "Gia buon", "Gia ban", "Thoi luong", "Dao dien", "Dien vien");
 		System.out.println(header);
 		for (Map.Entry<String, DiaPhim> entry : dsDiaPhim.entrySet()) {
 			String row = String.format("%10s%30s%30s%30s%30s%30s%30s%30s%30s", entry.getValue().getMaSp(),
 					entry.getValue().getTenSp(), entry.getValue().getNamPhatHanh(), entry.getValue().getSoLuong(),
-					entry.getValue().getGiaBuon(), entry.getValue().getGiaBan(),entry.getValue().getThoiLuong() ,entry.getValue().getDaoDien(),
-					entry.getValue().getDienVien());
+					entry.getValue().getGiaBuon(), entry.getValue().getGiaBan(), entry.getValue().getThoiLuong(),
+					entry.getValue().getDaoDien(), entry.getValue().getDienVien());
 			System.out.println(row);
 		}
 	}
 
-	public void hienThiDiaNhac() {
+	public void xemToanBoDiaNhac() {
 		System.out.println("Danh sach san pham");
-		String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham", "Ten san pham", "Nam phat hanh",
-				"So luong", "Gia buon", "Gia ban", "Thoi luong" , "Ca sy", "Danh sach bai hat");
+		String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham", "Ten san pham",
+				"Nam phat hanh", "So luong", "Gia buon", "Gia ban", "Thoi luong", "Ca sy", "Danh sach bai hat");
 		System.out.println(header);
 		for (Map.Entry<String, DiaNhac> entry : dsDiaNhac.entrySet()) {
 			String row = String.format("%10s%30s%30s%30s%30s%30s%30s%30s%30s", entry.getValue().getMaSp(),
 					entry.getValue().getTenSp(), entry.getValue().getNamPhatHanh(), entry.getValue().getSoLuong(),
-					entry.getValue().getGiaBuon(), entry.getValue().getGiaBan(),entry.getValue().getThoiLuong() ,entry.getValue().getCaSy(),
-					entry.getValue().getDanhsachBaiHat());
+					entry.getValue().getGiaBuon(), entry.getValue().getGiaBan(), entry.getValue().getThoiLuong(),
+					entry.getValue().getCaSy(), entry.getValue().getDanhsachBaiHat());
 			System.out.println(row);
 		}
 	}
 
-	public void hienThiThongTinSanPham() {
+	public void xemThongTinSanPhamTheoMa() {
 		System.out.println("Nhap ma san pham: ");
 		String maSp = sc.nextLine();
 		if (maTonTai(maSp)) {
@@ -563,22 +849,23 @@ public class QuanLySanPham {
 			}
 			if (sanPham instanceof DiaPhim) {
 				DiaPhim diaPhim = this.dsDiaPhim.get(maSp);
-				String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham" , "Ten san pham"
-						, "Nam phat hanh" , "So luong" , "Gia buon" , "Gia ban" ,"Thoi luong" ,"Dao dien" , "Dien vien");
+				String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham", "Ten san pham",
+						"Nam phat hanh", "So luong", "Gia buon", "Gia ban", "Thoi luong", "Dao dien", "Dien vien");
 				System.out.println(header);
-				String row = String.format("%10s%30s%30s%30s%30s%30s%30s%30s%30s", diaPhim.getMaSp(), diaPhim.getTenSp(),
-						diaPhim.getNamPhatHanh(), diaPhim.getSoLuong(), diaPhim.getGiaBuon(), diaPhim.getGiaBan(), diaPhim.getThoiLuong(),
-						diaPhim.getDaoDien(), diaPhim.getDienVien());
+				String row = String.format("%10s%30s%30s%30s%30s%30s%30s%30s%30s", diaPhim.getMaSp(),
+						diaPhim.getTenSp(), diaPhim.getNamPhatHanh(), diaPhim.getSoLuong(), diaPhim.getGiaBuon(),
+						diaPhim.getGiaBan(), diaPhim.getThoiLuong(), diaPhim.getDaoDien(), diaPhim.getDienVien());
 				System.out.println(row);
 			}
 			if (sanPham instanceof DiaNhac) {
 				DiaNhac diaNhac = this.dsDiaNhac.get(maSp);
-				String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham" , "Ten san pham"
-						, "Nam phat hanh" , "So luong" , "Gia buon" , "Gia ban" , "Thoi luong", "Ca sy" + "Danh sach bai hat");
+				String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham", "Ten san pham",
+						"Nam phat hanh", "So luong", "Gia buon", "Gia ban", "Thoi luong",
+						"Ca sy" + "Danh sach bai hat");
 				System.out.println(header);
-				String row = String.format("%10s%30s%30s%30s%30s%30s%30s%30s%30s", diaNhac.getMaSp(), diaNhac.getTenSp(),
-						diaNhac.getNamPhatHanh(), diaNhac.getSoLuong(), diaNhac.getGiaBuon(), diaNhac.getGiaBan(), diaNhac.getThoiLuong(),
-						diaNhac.getCaSy(), diaNhac.getDanhsachBaiHat());
+				String row = String.format("%10s%30s%30s%30s%30s%30s%30s%30s%30s", diaNhac.getMaSp(),
+						diaNhac.getTenSp(), diaNhac.getNamPhatHanh(), diaNhac.getSoLuong(), diaNhac.getGiaBuon(),
+						diaNhac.getGiaBan(), diaNhac.getThoiLuong(), diaNhac.getCaSy(), diaNhac.getDanhsachBaiHat());
 				System.out.println(row);
 			}
 		} else {
@@ -586,37 +873,10 @@ public class QuanLySanPham {
 		}
 	}
 
-/*	public void hienThiToanBoSanPhamChoKhachHang() {
-		System.out.println("1.Hien thi  sach ");
-		System.out.println("2.Hien thi dia phim ");
-		System.out.println("3.Hien thi dia nhac ");
-		try {
-			int luachon = sc.nextInt();
-			switch (luachon) {
-			case 1:
-				hienThiSachChoKhachHang();
-				break;
-			case 2:
-				hienThiDiaPhimChoKhachHang();
-				break;
-			case 3:
-				hienThiDiaNhacChoKhachHang();
-				break;
-			default:
-				break;
-			}
-		} catch (InputMismatchException ei) {
-			System.out.println("Ban da nhap sai gia tri, xin vui long nhap lai");
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
-		}
-	}*/
-
-	public void hienThiSachChoKhachHang() {
+	public void xemToanBoSachChoKhachHang() {
 		System.out.println("Danh sach san pham");
-		String header = String.format("%10s%30s%30s%30s%30s%30s%30s",
-				"Ma san pham" , "Ten san pham" , "Nam phat hanh" , "So luong" , "Gia ban" , "Tac gia" , "Nha xuat ban");
+		String header = String.format("%10s%30s%30s%30s%30s%30s%30s", "Ma san pham", "Ten san pham", "Nam phat hanh",
+				"So luong", "Gia ban", "Tac gia", "Nha xuat ban");
 		System.out.println(header);
 		for (Map.Entry<String, Sach> entry : dsSach.entrySet()) {
 			String row = String.format("%10s%30s%30s%30s%30s%30s%30s", entry.getValue().getMaSp(),
@@ -626,33 +886,35 @@ public class QuanLySanPham {
 		}
 	}
 
-	public void hienThiDiaPhimChoKhachHang() {
+	public void xemToanBoDiaPhimChoKhachHang() {
 		System.out.println("Danh sach san pham");
-		String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s",
-				"Ma san pham" , "Ten san pham" , "Nam phat hanh" , "So luong" , "Gia ban" ,"Thoi luong" ,"Dao dien" + "Dien vien");
+		String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham", "Ten san pham",
+				"Nam phat hanh", "So luong", "Gia ban", "Thoi luong", "Dao dien" + "Dien vien");
 		System.out.println(header);
 		for (Map.Entry<String, DiaPhim> entry : dsDiaPhim.entrySet()) {
 			String row = String.format("%10s%30s%30s%30s%30s%30s%30s%30s", entry.getValue().getMaSp(),
 					entry.getValue().getTenSp(), entry.getValue().getNamPhatHanh(), entry.getValue().getSoLuong(),
-					entry.getValue().getGiaBan(), entry.getValue().getThoiLuong() ,entry.getValue().getDaoDien(), entry.getValue().getDienVien());
+					entry.getValue().getGiaBan(), entry.getValue().getThoiLuong(), entry.getValue().getDaoDien(),
+					entry.getValue().getDienVien());
 			System.out.println(row);
 		}
 	}
 
-	public void hienThiDiaNhacChoKhachHang() {
+	public void xemToanBoDiaNhacChoKhachHang() {
 		System.out.println("Danh sach san pham");
-		String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham" , "Ten san pham" , "Nam phat hanh"
-				, "So luong" , "Gia ban" ,"Thoi luong", "Ca sy" , "Danh sach bai hat");
+		String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham", "Ten san pham",
+				"Nam phat hanh", "So luong", "Gia ban", "Thoi luong", "Ca sy", "Danh sach bai hat");
 		System.out.println(header);
 		for (Map.Entry<String, DiaNhac> entry : dsDiaNhac.entrySet()) {
 			String row = String.format("%10s%30s%30s%30s%30s%30s%30s%30s", entry.getValue().getMaSp(),
 					entry.getValue().getTenSp(), entry.getValue().getNamPhatHanh(), entry.getValue().getSoLuong(),
-					entry.getValue().getGiaBan(),entry.getValue().getThoiLuong() ,entry.getValue().getCaSy(), entry.getValue().getDanhsachBaiHat());
+					entry.getValue().getGiaBan(), entry.getValue().getThoiLuong(), entry.getValue().getCaSy(),
+					entry.getValue().getDanhsachBaiHat());
 			System.out.println(row);
 		}
 	}
 
-	public void hienThiThongTinSanPhamChoKhachHang() {
+	public void xemThongTinSanPhamChoKhachHang() {
 		try {
 			System.out.println("Nhap ma san pham: ");
 			String maSp = sc.nextLine();
@@ -660,8 +922,8 @@ public class QuanLySanPham {
 				SanPham sanPham = timKiemTheoMa(maSp);
 				if (sanPham instanceof Sach) {
 					Sach sach = this.dsSach.get(maSp);
-					String header = String.format("%10s%30s%30s%30s%30s%30s%30s", "Ma san pham" , "Ten san pham"
-							, "Nam phat hanh" , "So luong" , "Gia ban" ,"Tac gia" , "Nha xuat ban");
+					String header = String.format("%10s%30s%30s%30s%30s%30s%30s", "Ma san pham", "Ten san pham",
+							"Nam phat hanh", "So luong", "Gia ban", "Tac gia", "Nha xuat ban");
 					System.out.println(header);
 					String row = String.format("%10s%30s%30s%30s%30s%30s%30s", sach.getMaSp(), sach.getTenSp(),
 							sach.getNamPhatHanh(), sach.getSoLuong(), sach.getGiaBan(), sach.getTacGia(),
@@ -670,22 +932,22 @@ public class QuanLySanPham {
 				}
 				if (sanPham instanceof DiaPhim) {
 					DiaPhim diaPhim = this.dsDiaPhim.get(maSp);
-					String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham" , "Ten san pham"
-							, "Nam phat hanh" , "So luong" , "Gia ban" ,"Thoi luong", "Dao dien" + "Dien vien");
+					String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham", "Ten san pham",
+							"Nam phat hanh", "So luong", "Gia ban", "Thoi luong", "Dao dien" + "Dien vien");
 					System.out.println(header);
-					String row = String.format("%10s%30s%30s%30s%30s%30s%30s%30s", diaPhim.getMaSp(), diaPhim.getTenSp(),
-							diaPhim.getNamPhatHanh(), diaPhim.getSoLuong(), diaPhim.getGiaBan(),diaPhim.getThoiLuong() ,diaPhim.getDaoDien(),
-							diaPhim.getDienVien());
+					String row = String.format("%10s%30s%30s%30s%30s%30s%30s%30s", diaPhim.getMaSp(),
+							diaPhim.getTenSp(), diaPhim.getNamPhatHanh(), diaPhim.getSoLuong(), diaPhim.getGiaBan(),
+							diaPhim.getThoiLuong(), diaPhim.getDaoDien(), diaPhim.getDienVien());
 					System.out.println(row);
 				}
 				if (sanPham instanceof DiaNhac) {
 					DiaNhac diaNhac = this.dsDiaNhac.get(maSp);
-					String header = String.format("%s%15s%30s%15s%15s%15s%15s", "Ma san pham" + "Ten san pham"
-							+ "Nam phat hanh" + "So luong" + "Gia ban" + "Ca sy" + "Danh sach bai hat");
+					String header = String.format("%10s%30s%30s%30s%30s%30s%30s%30s", "Ma san pham", "Ten san pham",
+							"Nam phat hanh", "So luong", "Gia ban", "Ca sy", "Thoi luong", "Danh sach bai hat");
 					System.out.println(header);
-					String row = String.format("%s%15s%30s%15s%15s%15s%15s", diaNhac.getMaSp(), diaNhac.getTenSp(),
-							diaNhac.getNamPhatHanh(), diaNhac.getSoLuong(), diaNhac.getGiaBan(), diaNhac.getCaSy(),
-							diaNhac.getDanhsachBaiHat());
+					String row = String.format("%10s%30s%30s%30s%30s%30s%30s%30s", diaNhac.getMaSp(),
+							diaNhac.getTenSp(), diaNhac.getNamPhatHanh(), diaNhac.getSoLuong(), diaNhac.getGiaBan(),
+							diaNhac.getThoiLuong(), diaNhac.getCaSy(), diaNhac.getDanhsachBaiHat());
 					System.out.println(row);
 				}
 			} else {

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,7 +17,6 @@ import java.util.Scanner;
 
 public class QuanLyKhachHang {
 	private HashMap<String, KhachHang> dsKhachHang = new HashMap<>();
-	private QuanLyHoaDon quanLyHoaDon;
 	public String header = String.format("%10s%25s%15s%25s%25s%25s", "Ma", "Ten", "Gioi Tinh", "Ngay Sinh", "SDT",
 			"Dia chi");
 	Scanner sc = new Scanner(System.in);
@@ -63,7 +63,6 @@ public class QuanLyKhachHang {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	private boolean checkSDT(String sdt) {
 		if (sdt.charAt(0) != '0') {
 			System.out.println("SDT bat dau tu 0!");
@@ -71,7 +70,7 @@ public class QuanLyKhachHang {
 		} else {
 			for (int i = 1; i < sdt.length(); i++) {
 				if (sdt.charAt(i) >= '0' && sdt.charAt(i) <= '9') {
-					return true;
+					continue;
 				} else {
 					System.out.println("SDT khong duoc chua ki tu khac so!");
 					return false;
@@ -215,37 +214,6 @@ public class QuanLyKhachHang {
 			}
 		} else {
 			System.out.println("Ma nhan vien khong ton tai!");
-		}
-	}
-
-	// mua hang
-	public void muaHang() {
-		KhachHang khachHang = themKhachHang();
-		int a;
-		while (true) {
-			System.out.println("Nhap so loai hang muon mua: ");
-			try {
-				int a1 = sc.nextInt();
-				if (a1 < 0)
-					throw new Exception();
-				a = a1;
-				break;
-			} catch (Exception e) {
-				System.out.println("Ban da nhap sai xin vui long nhap lai!");
-			}
-
-		}
-		ArrayList<HoaDonXuat> allHoaDon = new ArrayList<HoaDonXuat>();
-		for (int i = 1; i <= a; i++) {
-			HoaDonXuat hoaDonXuat = quanLyHoaDon.muaHang(khachHang);
-			allHoaDon.add(hoaDonXuat);
-		}
-		System.out.println("------Danh sach don hang------: ");
-		System.out.println(quanLyHoaDon.header1);
-		for (HoaDonXuat donXuat : allHoaDon) {
-			String row = String.format("%10s%25s%15s%25s%25s%25s", donXuat.getMaKhachHang(), dsKhachHang.get(donXuat.getMaKhachHang()).getTen(),
-					donXuat.getMaSanPham(), donXuat.getSoLuong(), donXuat.getNgayMua(), donXuat.getGiaBan());
-			System.out.println(row);
 		}
 	}
 }
