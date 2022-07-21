@@ -1,23 +1,23 @@
 package model;
 
 public class DiaPhim extends SanPham {
-	private int thoiLuong;
+	private String thoiLuong;
 	private String daoDien;
 	private String dienVien;
 
-	public DiaPhim(String maSp, String tenSp, int namPhatHanh, int soLuong, String theLoai, double giaBuon,
-			double giaBan, int thoiLuong, String daoDien, String dienVien) {
+	public DiaPhim(String maSp, String tenSp, int namPhatHanh, int soLuong, double giaBuon, double giaBan,
+			String thoiLuong, String daoDien, String dienVien) {
 		super(maSp, tenSp, namPhatHanh, soLuong, giaBuon, giaBan);
 		this.thoiLuong = thoiLuong;
 		this.daoDien = daoDien;
 		this.dienVien = dienVien;
 	}
 
-	public int getThoiLuong() {
+	public String getThoiLuong() {
 		return thoiLuong;
 	}
 
-	public void setThoiLuong(int thoiLuong) {
+	public void setThoiLuong(String thoiLuong) {
 		this.thoiLuong = thoiLuong;
 	}
 
@@ -37,10 +37,11 @@ public class DiaPhim extends SanPham {
 		this.dienVien = dienVien;
 	}
 
-	@Override
-	public String toString() {
-		return "DiaPhim [thoiLuong=" + thoiLuong + ", daoDien=" + daoDien + ", dienVien="
-				+ dienVien + "]";
+	public String luuVaoData() {
+		return this.getMaSp() + "::" + this.getTenSp() + "::" + String.format("%1d", this.getNamPhatHanh()) + "::"
+				+ String.format("%1d", this.getSoLuong()) + "::" + String.format("%1f", this.getGiaBuon()) + "::"
+				+ String.format("%1f", this.getGiaBan()) + "::" + this.thoiLuong + "::" + this.daoDien + "::"
+				+ this.dienVien;
 	}
 
 }

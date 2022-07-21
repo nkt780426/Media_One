@@ -72,16 +72,16 @@ public class HeThong {
                             int luaChonKhachHang = sc.nextInt();
                             switch (luaChonKhachHang) {
                                 case 1:
-
+                                	
                                     break;
                                 case 2:
-
+                                	
                                     break;
                                 case 3:
                                 	quanLyKhachHang.muaHang();
                                 	break;
                                 case 4:
-
+                                	
                                     break;
                                 case 5:
 
@@ -113,13 +113,13 @@ public class HeThong {
                                     	
                                         break;
                                     case 2:
-
+                                    	quanLySanPham.hienThiSach();
                                         break;
                                     case 3:
 
                                         break;
                                     case 4:
-
+                                    	quanLySanPham.themSach();
                                         break;
                                     case 5:
 
