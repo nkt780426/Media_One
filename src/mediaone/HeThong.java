@@ -94,6 +94,7 @@ public class HeThong {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+					sc.close();
 					break;
 				// Quan ly
 				case 2:
@@ -213,6 +214,7 @@ public class HeThong {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+					sc.close();
 					break;
 				default:
 					System.out.println("Ban da nhap sai xin vui long nhap lai!");
