@@ -133,15 +133,14 @@ public class QuanLyHoaDon {
 				try {
 
 					System.out.println("Nhap so luong muon mua: ");
-
-					int soLuong1 = sc.nextInt();
+					int soLuong1 = Integer.parseInt(sc.nextLine());
 					if (soLuong1 > sach.getSoLuong()) {
 						System.out.println("Khong du hang, xin vui long nhap lai!");
 					} else {
 						soLuong = soLuong1;
 						break;
 					}
-				} catch (InputMismatchException e) {
+				} catch (NumberFormatException e) {
 					System.out.println("Ban da nhap sai hoac so luong hang ban nhap qua lon, xin vui long nhap lai!");
 					continue;
 				}
