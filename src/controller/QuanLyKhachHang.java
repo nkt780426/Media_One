@@ -36,7 +36,7 @@ public class QuanLyKhachHang {
 	public KhachHang castToKhachHang(String[] line) {
 		try {
 			DateTimeFormatter f = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-			KhachHang kh = new KhachHang(line[0], line[1], line[2], line[3], line[4], LocalDate.parse(line[5], f));
+			KhachHang kh = new KhachHang(line[0], line[1], line[2], line[3], LocalDate.parse(line[4], f), line[5]);
 			return kh;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -49,7 +49,7 @@ public class QuanLyKhachHang {
 
 		khList.stream().forEach((e) -> {
 			String[] code = e.split("::");
-			dsKhachHang.put(code[1], castToKhachHang(code));
+			dsKhachHang.put(code[5], castToKhachHang(code));
 		});
 	}
 
@@ -132,7 +132,7 @@ public class QuanLyKhachHang {
 				System.out.println("Ban da nhap sai xin vui long nhap lai!");
 			}
 		}
-		KhachHang khachHang = new KhachHang(ten, maKhachHang, gioiTinh, diaChi, sdt, ngaySinh);
+		KhachHang khachHang = new KhachHang(ten, gioiTinh, diaChi, sdt, ngaySinh, maKhachHang);
 		dsKhachHang.put(khachHang.getMaKh(), khachHang);
 		confirmData();
 		System.out.println("Them thanh cong!");
@@ -206,7 +206,7 @@ public class QuanLyKhachHang {
 					}
 				}
 
-				KhachHang khachHang = new KhachHang(ten, ma, gioiTinh, diaChi, sdt, ngaySinh);
+				KhachHang khachHang = new KhachHang(ten, gioiTinh, diaChi, sdt, ngaySinh, ma);
 				dsKhachHang.put(khachHang.getMaKh(), khachHang);
 				confirmData();
 			} catch (InputMismatchException e) {

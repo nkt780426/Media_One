@@ -72,7 +72,6 @@ public class HeThong {
 							} catch (InputMismatchException e) {
 								System.out.println("Ban da nhap sai xin vui long nhap lai: ");
 							} catch (Exception e) {
-								// TODO: handle exception
 								e.printStackTrace();
 							}
 							break;
@@ -81,7 +80,6 @@ public class HeThong {
 							break;
 						case 3:
 							quanLyHoaDon.xuatHoaDon();
-							;
 							break;
 						case 4:
 							break;
@@ -94,7 +92,6 @@ public class HeThong {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					sc.close();
 					break;
 				// Quan ly
 				case 2:
@@ -133,7 +130,6 @@ public class HeThong {
 								} catch (InputMismatchException e) {
 									System.out.println("Ban da nhap sai xin vui long nhap lai: ");
 								} catch (Exception e) {
-									// TODO: handle exception
 									e.printStackTrace();
 								}
 								break;
@@ -171,7 +167,6 @@ public class HeThong {
 								} catch (InputMismatchException e) {
 									System.out.println("Ban da nhap sai xin vui long nhap lai: ");
 								} catch (Exception e) {
-									// TODO: handle exception
 									e.printStackTrace();
 								}
 								break;
@@ -200,6 +195,7 @@ public class HeThong {
 								quanLyNhanVien.xoaNhanVien();
 								break;
 							case 13:
+								quanLyHoaDon.hienThiDoanhThuVaLai();
 								break;
 							case 14:
 								i = false;
@@ -214,7 +210,6 @@ public class HeThong {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					sc.close();
 					break;
 				default:
 					System.out.println("Ban da nhap sai xin vui long nhap lai!");

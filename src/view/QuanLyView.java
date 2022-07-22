@@ -20,12 +20,14 @@ public class QuanLyView {
 		System.out.println("13.Xem doanh thu va loi nhuan: ");
 		System.out.println("14.Quay lai:");
 	}
+
 	public void menuThemSanPham() {
 		System.out.println("1.Them sach: ");
 		System.out.println("2.Them dia phim: ");
 		System.out.println("3.Them dia nhac: ");
 		System.out.println("4.Quay lai: ");
 	}
+
 	public void menuXemToanBoSanPham() {
 		System.out.println("1.Xem toan bo sach: ");
 		System.out.println("2.Xem toan bo dia phim: ");

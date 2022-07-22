@@ -298,7 +298,7 @@ public class QuanLyHoaDon {
 		return tinhDoanhThu(date1, date2) - lai;
 	}
 
-	public void tinhLai() {
+	public void hienThiDoanhThuVaLai() {
 		System.out.println("------Nhap khoang thoi gian ban muon xem------");
 		System.out.println("Chu y ngay 1 phai nho hon ngay 2");
 		LocalDate date1;

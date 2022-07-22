@@ -27,8 +27,8 @@ public class QuanLyNhanVien {
 	public NhanVien castToNhanVien(String[] line) {
 		try {
 			DateTimeFormatter f = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-			NhanVien nv = new NhanVien(line[0], line[1], line[2], line[3], line[4], LocalDate.parse(line[5], f),
-					Double.parseDouble(line[7]), Integer.parseInt(line[6]));
+			NhanVien nv = new NhanVien(line[0], line[1], line[2], line[3], LocalDate.parse(line[4], f), line[5],
+					Double.parseDouble(line[6]), Integer.parseInt(line[7]));
 			return nv;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -43,7 +43,7 @@ public class QuanLyNhanVien {
 
 		nvList.stream().forEach((e) -> {
 			String[] code = e.split("::");
-			dsNhanVien.put(code[1], castToNhanVien(code));
+			dsNhanVien.put(code[5], castToNhanVien(code));
 		});
 	}
 
@@ -154,7 +154,7 @@ public class QuanLyNhanVien {
 				System.out.println("Ban da nhap sai xin vui long nhap lai!");
 			}
 		}
-		NhanVien nhanVien = new NhanVien(ten, maNhanVien, gioiTinh, diaChi, sdt, ngaySinh, luong, ngayNhanLuong);
+		NhanVien nhanVien = new NhanVien(ten, gioiTinh, diaChi, sdt, ngaySinh, maNhanVien, luong, ngayNhanLuong);
 		dsNhanVien.put(nhanVien.getMaNV(), nhanVien);
 		confirmData();
 		System.out.println("Them thanh cong!");
@@ -186,7 +186,7 @@ public class QuanLyNhanVien {
 			NhanVien nhanVien = this.dsNhanVien.get(ma);
 			System.out.println(header);
 			String row = String.format("%10s%25s%25s%25s%25s%25s%25s%25s", nhanVien.getMaNV(), nhanVien.getTen(),
-					nhanVien.getGioiTinh(), nhanVien.getNgaySinhString(), nhanVien.getSdt(), nhanVien.getDiaChi(),
+					nhanVien.getGioiTinh(), nhanVien.getNgaySinh(), nhanVien.getSdt(), nhanVien.getDiaChi(),
 					nhanVien.getLuong(), nhanVien.getNgayNhanLuong());
 			System.out.println(row);
 		} else {
@@ -200,7 +200,7 @@ public class QuanLyNhanVien {
 		System.out.println(header);
 		for (Map.Entry<String, NhanVien> entry : dsNhanVien.entrySet()) {
 			String row = String.format("%10s%25s%25s%25s%25s%25s%25s%25s", entry.getValue().getMaNV(),
-					entry.getValue().getTen(), entry.getValue().getGioiTinh(), entry.getValue().getNgaySinhString(),
+					entry.getValue().getTen(), entry.getValue().getGioiTinh(), entry.getValue().getNgaySinh(),
 					entry.getValue().getSdt(), entry.getValue().getDiaChi(), entry.getValue().getLuong(),
 					entry.getValue().getNgayNhanLuong());
 			System.out.println(row);
@@ -275,7 +275,7 @@ public class QuanLyNhanVien {
 					}
 				}
 
-				NhanVien nhanVien = new NhanVien(ten, ma, gioiTinh, diaChi, sdt, ngaySinh, luong, ngayNhanLuong);
+				NhanVien nhanVien = new NhanVien(ten, gioiTinh, diaChi, sdt, ngaySinh, ma, luong, ngayNhanLuong);
 				dsNhanVien.put(nhanVien.getMaNV(), nhanVien);
 				confirmData();
 			} catch (InputMismatchException e) {
