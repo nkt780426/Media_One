@@ -73,7 +73,7 @@ public class QuanLyNhanVien {
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 
 	// Them NV theo hash Map
