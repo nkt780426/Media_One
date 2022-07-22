@@ -172,8 +172,6 @@ public class QuanLyNhanVien {
 		} else {
 			System.out.println("Khong ton tai ma nhan vien!");
 		}
-
-		System.out.println("Xoa thanh cong!");
 	}
 
 	// xem theo ma

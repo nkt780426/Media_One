@@ -44,6 +44,7 @@ public class NhanVien extends Nguoi {
 		DateTimeFormatter f = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		String dateFormat = this.getNgaySinh().format(f);
 		return this.getTen() + "::" + this.getGioiTinh() + "::" + this.getDiaChi() + "::" + this.getSdt() + "::"
-				+ dateFormat + "::" + this.maNV + "::" + "::" + String.format("%1f", this.luong) + this.ngayNhanLuong;
+				+ dateFormat + "::" + this.maNV + "::" + String.format("%1f", this.luong) + "::"
+				+ String.format("%1d", this.ngayNhanLuong);
 	}
 }

@@ -99,6 +99,7 @@ public class QuanLyHoaDon {
 
 	// mua hang
 	public HoaDonXuat muaHang(KhachHang khachHang) {
+		sc.nextLine();
 		LocalDate ngayMua;
 		while (true) {
 			try {
@@ -117,6 +118,7 @@ public class QuanLyHoaDon {
 			String maSanPham1 = sc.nextLine();
 			if (quanLySanPham.timKiemTheoMa(maSanPham1) == null) {
 				System.out.println("Ma san pham khong ton tai, xin vui long nhap lai!");
+				continue;
 			} else {
 				maSanPham = maSanPham1;
 				break;
@@ -141,6 +143,7 @@ public class QuanLyHoaDon {
 					}
 				} catch (InputMismatchException e) {
 					System.out.println("Ban da nhap sai hoac so luong hang ban nhap qua lon, xin vui long nhap lai!");
+					continue;
 				}
 			}
 			int a = sach.getSoLuong();
@@ -222,14 +225,14 @@ public class QuanLyHoaDon {
 		KhachHang khachHang = quanLyKhachHang.themKhachHang();
 		int a;
 		while (true) {
-			System.out.println("Nhap so loai hang muon mua: ");
 			try {
-				int a1 = sc.nextInt();
+				System.out.println("Nhap so loai hang muon mua: ");
+				int a1 = Integer.parseInt(sc.nextLine());
 				if (a1 < 0)
-					throw new Exception();
+					throw new NumberFormatException();
 				a = a1;
 				break;
-			} catch (Exception e) {
+			} catch (NumberFormatException e) {
 				System.out.println("Ban da nhap sai xin vui long nhap lai!");
 			}
 

@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-public class Nguoi {
+public abstract class Nguoi {
 	private String ten;
 	private String gioiTinh;
 	private String diaChi;

@@ -102,7 +102,7 @@ public class QuanLyKhachHang {
 
 		System.out.print("Nhap gioi tinh (NAM or NU): ");
 		String gioiTinh = sc.nextLine();
-
+		
 		LocalDate ngaySinh;
 		while (true) {
 			try {
