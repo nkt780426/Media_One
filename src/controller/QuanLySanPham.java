@@ -82,7 +82,7 @@ public class QuanLySanPham {
 		});
 	}
 
-	private void confirmDataSach() {
+	public void confirmDataSach() {
 		List<String> temp = new ArrayList<>();
 		for (Map.Entry<String, Sach> e : dsSach.entrySet()) {
 			temp.add(e.getValue().luuVaoData());
@@ -94,7 +94,7 @@ public class QuanLySanPham {
 		}
 	}
 
-	private void confirmDataDiaPhim() {
+	public void confirmDataDiaPhim() {
 		List<String> temp = new ArrayList<>();
 		for (Map.Entry<String, DiaPhim> e : dsDiaPhim.entrySet()) {
 			temp.add(e.getValue().luuVaoData());
@@ -106,7 +106,7 @@ public class QuanLySanPham {
 		}
 	}
 
-	private void confirmDataDiaNhac() {
+	public void confirmDataDiaNhac() {
 		List<String> temp = new ArrayList<>();
 		for (Map.Entry<String, DiaNhac> e : dsDiaNhac.entrySet()) {
 			temp.add(e.getValue().luuVaoData());

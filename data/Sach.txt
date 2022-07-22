@@ -1,3 +1,3 @@
-1::LTHDT::2022::12::1000.000000::2000.000000::Nguyen Van Thang::Nguyen Van Thang
-2::HDH::2002::12::2000.000000::3000.000000::Vo Nguyen Hoang::Kim Dong
+1::LTHDT::2022::10::1000.000000::2000.000000::Nguyen Van Thang::Nguyen Van Thang
+2::HDH::2002::6::2000.000000::3000.000000::Vo Nguyen Hoang::Kim Dong
 3::MMT::2022::15::15000.000000::16000.000000::hoang::Hoang Kim

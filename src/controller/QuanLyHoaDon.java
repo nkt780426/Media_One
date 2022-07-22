@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,9 +27,9 @@ public class QuanLyHoaDon {
 	private ArrayList<HoaDonXuat> xuat = new ArrayList<>();
 	private ArrayList<HoaDonNhap> nhap = new ArrayList<>();
 
-	public String header1 = String.format("%10s%25s%20s%25s%25s%20s", "Ma Khach Hang", "Ten", "Ma san pham", "So Luong",
+	public String header1 = String.format("%20s%30s%30s%30s%30s%30s", "Ma Khach Hang", "Ten", "Ma san pham", "So Luong",
 			"Ngay Mua", "Gia Ban");
-	public String header2 = String.format("%10s%25s%20s%25s%25s%20s", "Ma Khach Hang", "Ten", "Ma san pham", "So Luong",
+	public String header2 = String.format("%20s%30s%30s%30s%30s%30s", "Ma Khach Hang", "Ten", "Ma san pham", "So Luong",
 			"Ngay Mua", "Gia Buon");
 	Scanner sc = new Scanner(System.in);
 
@@ -132,7 +131,7 @@ public class QuanLyHoaDon {
 			while (true) {
 				try {
 
-					System.out.println("Nhap so luong muon mua: ");
+					System.out.print("Nhap so luong muon mua: ");
 					int soLuong1 = Integer.parseInt(sc.nextLine());
 					if (soLuong1 > sach.getSoLuong()) {
 						System.out.println("Khong du hang, xin vui long nhap lai!");
@@ -142,11 +141,11 @@ public class QuanLyHoaDon {
 					}
 				} catch (NumberFormatException e) {
 					System.out.println("Ban da nhap sai hoac so luong hang ban nhap qua lon, xin vui long nhap lai!");
-					continue;
 				}
 			}
 			int a = sach.getSoLuong();
 			sach.setSoLuong(a - soLuong);
+			quanLySanPham.confirmDataSach();
 			HoaDonNhap donNhap = new HoaDonNhap(khachHang.getMaKh(), maSanPham, ngayMua, soLuong,
 					String.valueOf(quanLySanPham.getDsSach().get(maSanPham).getGiaBuon()));
 			nhap.add(donNhap);
@@ -162,26 +161,27 @@ public class QuanLyHoaDon {
 			while (true) {
 				try {
 
-					System.out.println("Nhap so luong muon mua: ");
+					System.out.print("Nhap so luong muon mua: ");
 
-					int soLuong1 = sc.nextInt();
+					int soLuong1 = Integer.parseInt(sc.nextLine());
 					if (soLuong1 > diaPhim.getSoLuong()) {
 						System.out.println("Khong du hang, xin vui long nhap lai!");
 					} else {
 						soLuong = soLuong1;
 						break;
 					}
-				} catch (InputMismatchException e) {
+				} catch (NumberFormatException e) {
 					System.out.println("Ban da nhap sai hoac so luong hang ban nhap qua lon, xin vui long nhap lai!");
 				}
 			}
 			int a = diaPhim.getSoLuong();
 			diaPhim.setSoLuong(a - soLuong);
+			quanLySanPham.confirmDataDiaPhim();
 			HoaDonNhap donNhap = new HoaDonNhap(khachHang.getMaKh(), maSanPham, ngayMua, soLuong,
-					String.valueOf(quanLySanPham.getDsSach().get(maSanPham).getGiaBuon()));
+					String.valueOf(quanLySanPham.getDsDiaPhim().get(maSanPham).getGiaBuon()));
 			nhap.add(donNhap);
 			HoaDonXuat donXuat = new HoaDonXuat(khachHang.getMaKh(), maSanPham, ngayMua, soLuong,
-					String.valueOf(quanLySanPham.getDsSach().get(maSanPham).getGiaBan()));
+					String.valueOf(quanLySanPham.getDsDiaPhim().get(maSanPham).getGiaBan()));
 			xuat.add(donXuat);
 			confirmData();
 			return donXuat;
@@ -192,26 +192,27 @@ public class QuanLyHoaDon {
 			while (true) {
 				try {
 
-					System.out.println("Nhap so luong muon mua: ");
+					System.out.print("Nhap so luong muon mua: ");
 
-					int soLuong1 = sc.nextInt();
+					int soLuong1 = Integer.parseInt(sc.nextLine());
 					if (soLuong1 > diaNhac.getSoLuong()) {
 						System.out.println("Khong du hang, xin vui long nhap lai!");
 					} else {
 						soLuong = soLuong1;
 						break;
 					}
-				} catch (InputMismatchException e) {
+				} catch (NumberFormatException e) {
 					System.out.println("Ban da nhap sai hoac so luong hang ban nhap qua lon, xin vui long nhap lai!");
 				}
 			}
 			int a = diaNhac.getSoLuong();
 			diaNhac.setSoLuong(a - soLuong);
+			quanLySanPham.confirmDataDiaNhac();
 			HoaDonNhap donNhap = new HoaDonNhap(khachHang.getMaKh(), maSanPham, ngayMua, soLuong,
-					String.valueOf(quanLySanPham.getDsSach().get(maSanPham).getGiaBuon()));
+					String.valueOf(quanLySanPham.getDsDiaNhac().get(maSanPham).getGiaBuon()));
 			nhap.add(donNhap);
 			HoaDonXuat donXuat = new HoaDonXuat(khachHang.getMaKh(), maSanPham, ngayMua, soLuong,
-					String.valueOf(quanLySanPham.getDsSach().get(maSanPham).getGiaBan()));
+					String.valueOf(quanLySanPham.getDsDiaNhac().get(maSanPham).getGiaBan()));
 			xuat.add(donXuat);
 			confirmData();
 			return donXuat;
@@ -225,9 +226,9 @@ public class QuanLyHoaDon {
 		int a;
 		while (true) {
 			try {
-				System.out.println("Nhap so loai hang muon mua: ");
+				System.out.print("Nhap so loai hang muon mua: ");
 				int a1 = Integer.parseInt(sc.nextLine());
-				if (a1 < 0)
+				if (a1 <= 0)
 					throw new NumberFormatException();
 				a = a1;
 				break;
@@ -244,7 +245,7 @@ public class QuanLyHoaDon {
 		System.out.println("------Danh sach don hang------: ");
 		System.out.println(header1);
 		for (HoaDonXuat donXuat : allHoaDon) {
-			String row = String.format("%10s%25s%15s%25s%25s%25s", donXuat.getMaKhachHang(),
+			String row = String.format("%20s%30s%30s%30s%30s%30s", donXuat.getMaKhachHang(),
 					quanLyKhachHang.getDsKhachHang().get(donXuat.getMaKhachHang()).getTen(), donXuat.getMaSanPham(),
 					donXuat.getSoLuong(), donXuat.getNgayMua(), donXuat.getGiaBan());
 			System.out.println(row);
@@ -255,7 +256,7 @@ public class QuanLyHoaDon {
 	public void xuatToanBoHoaDonXuat() {
 		System.out.println(header1);
 		for (HoaDonXuat hoaDonXuat : xuat) {
-			String row = String.format("%10s%25s%20s%25s%25s%20s",
+			String row = String.format("%20s%30s%30s%30s%30s%30s",
 					quanLyKhachHang.getDsKhachHang().get(hoaDonXuat.getMaKhachHang()),
 					quanLyKhachHang.getDsKhachHang().get(hoaDonXuat.getMaKhachHang()).getTen(),
 					hoaDonXuat.getMaSanPham(), hoaDonXuat.getSoLuong(), hoaDonXuat.getNgayMua(),
@@ -268,7 +269,7 @@ public class QuanLyHoaDon {
 	public void xuatToanBoHoaDonNhap() {
 		System.out.println(header2);
 		for (HoaDonNhap hoaDonNhap : nhap) {
-			String row = String.format("%10s%25s%20s%25s%25s%20s",
+			String row = String.format("%20s%30s%30s%30s%30s%30s",
 					quanLyKhachHang.getDsKhachHang().get(hoaDonNhap.getMaKhachHang()),
 					quanLyKhachHang.getDsKhachHang().get(hoaDonNhap.getMaKhachHang()).getTen(),
 					hoaDonNhap.getMaSanPham(), hoaDonNhap.getSoLuong(), hoaDonNhap.getNgayMua(),
