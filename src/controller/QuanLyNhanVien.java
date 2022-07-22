@@ -40,7 +40,6 @@ public class QuanLyNhanVien {
 
 	public QuanLyNhanVien() throws IOException {
 		ArrayList<String> nvList = (ArrayList<String>) Files.readAllLines(p);
-
 		nvList.stream().forEach((e) -> {
 			String[] code = e.split("::");
 			dsNhanVien.put(code[5], castToNhanVien(code));
